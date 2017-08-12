@@ -1,4 +1,4 @@
-SLUG = point_match
+SLUG = vacation
 
 SLIDE_HTML = $(SLUG).html
 

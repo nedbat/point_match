@@ -6,6 +6,8 @@
         - zellij
         - sidebars
         - advice
+    - ground rules
+        - questions are ok along the way
 - setting the scene
     - map
     - photos
