@@ -1,0 +1,80 @@
+- what am i talking about?
+    - a side project
+        - the details don't really matter
+    - but lots of sweng along the way
+    - categories of content here
+        - zellij
+        - sidebars
+        - advice
+- setting the scene
+    - map
+    - photos
+    - zellij geometry
+- point matching
+    - ideal: dict[pt] -> list[zigzags]
+    - sidebar: dicts
+        - they are fast
+        - keys don't have to be strings
+        - any immutable type
+        - sidesidebar: dunder methods??
+        - how __hash__ and __eq__ work together
+            - x == y ==> hash(x) == hash(y)
+            - hash(x) == hash(y)  !=>  x == y
+    - float fuzziness
+    - sidebar: floats
+        - they can be surprising
+        - 0.1 + 0.2 != 0.3
+        - but that is not what we are dealing with
+    - Point fuzzy equality
+        - but no hash function
+    - linear search through a list of pairs
+    - __getitem__ to pretend to be a mapping
+        - https://github.com/nedbat/zellij/commit/89fcdeb9b5f9e111d3b0be32958b2c9597c72a9a
+    - advice: abstractions to modularize
+        - if you don't know the answer, at least be clear about the question
+    - what our zigzag combiner looks like
+    - linear search is slow
+        - algorithmic complexity
+            - time and space characterizations
+            - how long algorithms take, depending on the size of the data
+    - why linear search is O(n)
+        - two meanings of "linear"
+    - total algorithm is O(n**2)!
+    - other problems with fuzzy eq:
+        - == is used in a few places, and it can confuse you
+    - next idea: rounding
+        - we can define __hash__
+        - but: close points can round away from each other
+    - solution: rounding two ways
+        - don't worry about the details
+        - more code, but O(1)
+        - now full code is O(n)
+    - summary of speed-up
+- pointmap did too much: defuzzer
+- advice: be ready to change your mind
+    - no one has the answers right off the bat
+    - i went through 5 or 6 implementations of PointMap
+        - 2 or 3 ways to define Point
+- choosing data structures
+    - point is namedtuple
+        - can be confused with tuple
+        - or other namedtuples
+    - path is list of points
+        - no methods, just a lot of functions
+            - duplicated code
+    - drawing a path: a path method, or a drawing method?
+        - collinear(p1, p2, p3): should it be a method?
+    - tuple, namedtuple, dict, class, attrs
+- advice: build in debugging tools
+    - __repr__
+    - fancy debug output
+- bounded mutability?
+    - practical functional programming
+- postulates??
+- testing??
+    - pytest
+    - parametrize
+    - hypothesis???
+- python 3 advances??
+    - f-strings
+    - mypy
