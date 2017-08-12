@@ -1,0 +1,376 @@
+<!DOCTYPE html> <!-- vim: set foldmethod=marker :-->
+<!--
+Values to change when making a new prez:
+
+    blank.html -> name of this file.
+    shorturl -> bit.ly short url, or remove those lines.
+
+Process this file with cog:
+
+    $ pip install -r requirements.txt
+    $ python -m cogapp -r blank.html
+
+-->
+<html>
+<!-- *** Head stuff {{{ -->
+<!--[[[cog
+import cog
+from cogutil import *
+]]]-->
+<!--[[[end]]]-->
+<head>
+<title>Point Matching</title>
+<meta charset="utf-8" />
+
+    <!-- *** Includes {{{ -->
+    <!-- Slippy core file and dependencies -->
+    <script type="text/javascript" src="slippy/jquery.min.js"></script>
+    <script type="text/javascript" src="slippy/jquery.history.js"></script>
+    <script type="text/javascript" src="slippy/slippy.js"></script>
+    <!-- Slippy structural styles -->
+    <link type="text/css" rel="stylesheet" href="slippy/slippy.css"/>
+    <!-- Slippy theme -->
+    <link type="text/css" rel="stylesheet" href="slippy/slippy-pure.css"/>
+    <!-- Our styles -->
+    <link type="text/css" rel="stylesheet" href="slides.css"/>
+
+    <!-- Highlight, for syntax coloring. -->
+    <script type="text/javascript" src="highlight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="highlight/vs.css">
+
+    <script type="text/javascript" src="lineselect.js"></script>
+
+    <!-- http://html.adobe.com/edge/webfonts/ -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- }}} -->
+
+    <!-- *** Init code {{{ -->
+    <script type="text/javascript">
+        $(function() {
+            if ($("body.slides").length) {
+                $(".slide").slippy({
+                    // settings go here
+                    // possible values are:
+                    //  - animLen, duration for default animations (0 = disabled)
+                    //  - animInForward, receives a slide and animates it
+                    //  - animInRewind, receives a slide and animates it
+                    //  - animOutForward, receives a slide and animates it
+                    //  - animOutRewind, receives a slide and animates it
+                    //  - baseWidth, defines the base for img resizing, if you don't want only
+                    //    full-width images, specify this as the pixel width of a slide so that
+                    //    images are scaled properly (default is 620px wide)
+                    //  - ratio, defines the width/height ratio of the slides, defaults to 1.3 (620x476)
+                    //  - margin, the fraction of screen to use as slide margin, defaults to 0.15
+                    margin: 0.04,
+                    incrementalBefore: function (el) {
+                        $(el).css({ opacity: 0.01 });
+                    },
+                    animInForward: function (slide) {
+                        var slide = $(slide);
+                        if (slide.hasClass("fadein")) {
+                            slide.css('opacity', '0').css('left', '50%').animate({opacity: '1'}, 650);
+                        }
+                        else {
+                            slide.css('left', '150%').animate({left: '50%'}, 350);
+                        }
+                        slide.find(".incremental").css({opacity:0});    // IDK why this hides them, but 0.01 does not.
+                    },
+                    animOutForward: function(slide) {
+                        var slide = $(slide);
+                        if (slide.hasClass("fadeout")) {
+                            slide.animate({opacity: '1'}, 650).animate({left: '-50%'}, 0);
+                        }
+                        else {
+                            slide.animate({left: '-50%'}, 350);
+                        }
+                    }
+                });
+            }
+
+            // Highlight the code in <pre> blocks.
+            $('pre').each(function (i, e) {
+                hljs.highlightBlock(e, '    ');
+            });
+
+            // Convert <pre> to have <span class='line'> for each line.
+            $('pre').each(function (i, e) {
+                var $e = $(e);
+                var lines = $e.html().split("\n");
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i];
+                    if (line === "") {
+                        lines[i] = "<span class='blankline'>&nbsp;</span>";
+                    }
+                    else {
+                        lines[i] = "<span class='line'>" + lines[i] + "</span>";
+                    }
+                }
+                $e.html(lines.join("\n"));
+            });
+
+            $("div.slide").lineselect({ lines: "pre span.line" });
+
+            // Pre-select lines based on a select= attribute.
+            $('pre').each(function (i, e) {
+                var $e = $(e);
+                var select = $e.attr("select");
+                if (select) {
+                    $e.lineselect(select);
+                }
+            });
+        });
+    </script>
+    <!-- }}} -->
+
+    <!-- *** Custom style for this deck {{{ -->
+    <style type="text/css">
+    .slide.image {
+        text-align: center;
+    }
+    </style>
+    <!-- }}} -->
+
+</head>
+<!-- }}} -->
+<body class="slides">
+
+<div class="slide title" data-layout="clean">
+    <h1>Point Matching</h1>
+    <!--
+    <h2>Ned Batchelder<br/><a class="implicit" href="http://twitter.com/nedbat"><span class="punct">@</span>nedbat</a></h2>
+    <h2><a class="implicit" href="http://bit.ly/shorturl"><span class="punct">http://</span>bit.ly<span class="punct">/</span>shorturl</a></h2>
+    -->
+</div>
+
+<div class="text"><!-- {{{ -->
+
+<p>Blah blah blah.</p>
+
+</div><!-- }}} -->
+
+<!--[[[cog
+import glob
+def pic_sequence(pix):
+    for i, pic in enumerate(pix):
+        cls = "slide image"
+        if i > 0:
+            cls += " fadein"
+        if i < len(pix) - 1:
+            cls += " fadeout"
+        cog.outl('<div class="{}"><img src="{}" /></div>'.format(cls, pic))
+]]]-->
+<!--[[[end]]]-->
+
+<div class="slide"><img src="map.png" /></div>
+
+<!--[[[cog 
+    pic_sequence(
+        ['dorn_balcony.jpg', 'dorn_view.jpg', 'dorn_room.jpg', 'dorn_three_stars.jpg', 'dorn_tile_zoom.jpg'] +
+        glob.glob('three_stars_0*.png')[:7]
+    )
+]]] -->
+<div class="slide image fadeout"><img src="dorn_balcony.jpg" /></div>
+<div class="slide image fadein fadeout"><img src="dorn_view.jpg" /></div>
+<div class="slide image fadein fadeout"><img src="dorn_room.jpg" /></div>
+<div class="slide image fadein fadeout"><img src="dorn_three_stars.jpg" /></div>
+<div class="slide image fadein fadeout"><img src="dorn_tile_zoom.jpg" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_000_start.png" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_001_thin.png" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_002_symmetry.png" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_003_triangle.png" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_004_design.png" /></div>
+<div class="slide image fadein fadeout"><img src="three_stars_005_lined.png" /></div>
+<div class="slide image fadein"><img src="three_stars_006_chaos.png" /></div>
+<!--[[[end]]]-->
+
+<div class="slide">
+    <h1>Ideal</h1>
+    <pre class="python">
+    Pt = namedtuple("Pt", "x, y")
+    zigzags = [
+        [Pt(10, 20), Pt(15, 21), Pt(20, 25)],
+        [Pt(20, 25), Pt(30, 15), Pt(27, 25), Pt(23, 21)],
+    ]
+    </pre>
+    <pre class="python incremental">
+    zz_by_ends = {
+        <span class='attn'>Pt(10, 20)</span>: [ 
+            [<span class='attn'>Pt(10, 20)</span>, Pt(15, 21), Pt(20, 25)],
+        ],
+        <span class='attn'>Pt(20, 25)</span>: [
+            [Pt(10, 20), Pt(15, 21), <span class='attn'>Pt(20, 25)</span>],
+            [<span class='attn'>Pt(20, 25)</span>, Pt(30, 15), Pt(27, 25), Pt(23, 21)],
+        ],
+        <span class='attn'>Pt(23, 21)</span>: [
+            [Pt(20, 25), Pt(30, 15), Pt(27, 25), <span class='attn'>Pt(23, 21)</span>],
+        ],
+    }
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>BUT: Same point, different values</h1>
+    <pre class="python">
+    zigzags = [
+        [<span class='attn'>Pt(10, 20)</span>, Pt(15, 21), Pt(20, 25)],
+        [Pt(20, 25), Pt(30, 15), Pt(27, 25), Pt(23, 21)],
+        [<span class='attn'>Pt(10, 20.00001)</span>, Pt(15, 40)],     # !!!   :(
+        ...
+    ]
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Fuzzy equality</h1>
+    <pre class="python">
+    class Pt(namedtuple("Pt", "x, y")):
+
+        def __eq__(self, other):
+            x1, y1 = self
+            x2, y2 = other
+            return (
+                math.isclose(x1, x2) and
+                math.isclose(y1, y2)
+            )
+    </pre>
+    <pre class="python incremental">
+        def __hash__(self):
+            #  ¯\_(ツ)_/¯
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Linear search: O(n)</h1>
+    <pre class="python">
+    zz_by_ends = [
+        (Pt(10, 20),  [..zigzags..] ),
+        (Pt(20, 25),  [..zigzags..] ),
+        (Pt(23, 21),  [..zigzags..] ),
+    ]
+    </pre>
+    <pre class="python incremental">
+    def find_zigzags(p):
+        for pt, zigzags in zz_by_ends:      #  O(n)
+            if p == pt:
+                return zigzags
+    </pre>
+    <pre class="python incremental">
+    for zz in all_zigzags:                  #  O(n**2)
+        others = find_zigzags(zz[0])
+        ...
+</div>
+
+<div class="slide">
+    <img src="three_stars_007_joined.png" />
+</div>
+
+<div class="slide">
+    <h1>Next idea: rounding</h1>
+    <pre class="python">
+    class Pt(namedtuple("Pt", "x, y")):
+
+        def rounded(self):
+            return (round(self.x), round(self.y))
+
+        def __eq__(self, other):
+            return self.rounded() == other.rounded()
+
+        def __hash__(self):
+            return hash(self.rounded())
+    </pre>
+    <pre class="python incremental">
+    # BUT!
+    >>> Pt(11.4999999, 0) == Pt(11.5000001, 0)
+    False
+    # Because (11.0, 0) != (12.0, 0)
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Round two ways!</h1>
+    <pre class="python">
+    def rounded(pt, jitter):
+        return round(pt.x + jitter), round(pt.y + jitter)
+
+    def pt_equal(p1, p2):
+        return (
+            rounded(p1, 0) == rounded(p2, 0) or
+            rounded(p1, 0.5) == rounded(p2, 0.5)
+        )
+    </pre>
+    <pre class="python incremental">
+    >>> pt_equal(Pt(10.9999999, 0), Pt(11.0000001, 0))
+    True
+    >>> pt_equal(Pt(11.4999999, 0), Pt(11.5000001, 0))
+    True
+    </pre>
+</div>
+
+<div class="slide">
+    <pre class="python medium">
+    class PointMap:
+        """Like defaultdict(list), with fuzzy Pt's as keys."""
+        def __init__(self):
+            self.items = {}     # pt -> value
+            self.rounds = {}    # pt -> pt
+
+        def __getitem__(self, pt):      # O(1)
+            val = self.items.get(pt)
+            if val is not None:
+                return val
+
+            for jitter in [0, 0.5]:
+                pt_rnd = rounded(pt, jitter)
+                pt0 = self.rounds.get(pt_rnd)
+                if pt0 is not None:
+                    return self.items[pt0]
+
+            # Not found: make an empty list value
+            self.items[pt] = val = []
+            for jitter in [0, 0.5]:
+                pt_rnd = rounded(pt, jitter)
+                self.rounds[pt_rnd] = pt
+
+            return val
+    </pre>
+</div>
+
+<div class="slide">
+    <img style="float:right" width="55%" src="straps.png" />
+    <h1>Results</h1>
+    <p class="incremental">~2100 points</p>
+    <p class="incremental">O(n): <b>20</b> sec</p>
+    <p class="incremental">O(1): <b>0.4</b> sec!</p>
+</div>
+
+<div class="slide">
+    <h1>Doing less</h1>
+    <pre class="python">
+    class Defuzzer:
+        def defuzz(self, pt):
+            """Return pt, or a previous equal point."""
+    </pre>
+    <pre class="python incremental">
+    >>> dfz = Defuzzer().defuzz
+    >>> dfz(Pt(1, 2))
+    Pt(1, 2)
+    >>> dfz(Pt(3, 4))
+    Pt(3, 4)
+    >>> dfz(Pt(1.01, 2))
+    Pt(1, 2)
+    </pre>
+</div>
+
+<div class="slide title">
+    <h1>The End<span class="incremental">?</span></h1>
+</div>
+
+
+<!-- ** Layouts {{{ -->
+<div class="layout" data-name="default">
+    <content></content>
+</div>
+<!-- }}} -->
+
+</body>
+</html>
