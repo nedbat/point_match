@@ -146,6 +146,15 @@ from cogutil import *
 
 </div><!-- }}} -->
 
+<div class="slide">
+    <h1>Big Picture</h1>
+    <ul>
+    <li class="incremental">Side project</li>
+    <li class="incremental">Concepts, techniques, advice</li>
+    <li class="incremental">Questions are OK!</li>
+    </ul>
+</div>
+
 <!--[[[cog
 import glob
 def pic_sequence(pix):
@@ -207,6 +216,15 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <h1>Sidebar: dicts</h1>
+    <ul>
+    <li class="incremental">Maps keys to values</li>
+    <li class="incremental">Fast! (more later)</li>
+    <li class="incremental">Anything <em>hashable</em> can be a key</li>
+    </ul>
+</div>
+
+<div class="slide">
     <h1>BUT: Same point, different values</h1>
     <pre class="python">
     zigzags = [
@@ -216,6 +234,76 @@ def pic_sequence(pix):
         ...
     ]
     </pre>
+    <pre class="python incremental">
+    >>> d = {Pt(10, 20): "hey there"}
+    >>> d[Pt(10, 20.00001)]
+    KeyError: Pt(10, 20.00001)
+    </pre>
+    <pre class="python incremental">
+    >>> Pt(10, 20) == Pt(10, 20.00001)
+    False
+    >>> 20 == 20.00001
+    False
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Sidebar: floats</h1>
+    <ul>
+    <li class="incremental">Notoriously fuzzy</li>
+    </ul>
+    <pre class="python incremental">
+    >>> 0.1 + 0.2 == 0.3
+    False
+    </pre>
+    <ul>
+    <li class="incremental">Base 10 vs Base 2</li>
+    <li class="incremental">1/3 is inexact in base 10</li>
+    <li class="incremental">1/10 is inexact in base 2</li>
+    <li class="incremental">Not Python-specific</li>
+    <li class="incremental">This is different: irrationals</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Sidebar: special methods</h1>
+    <ul>
+    <li class="incremental">"dunder" methods: __init__, __len__, __str__, ...</li>
+    <li class="incremental">len(x) &nbsp;&nbsp;&nbsp;&#8801;&nbsp;&nbsp;&nbsp; x.__len__()</li>
+    <li class="incremental">str(x) &nbsp;&nbsp;&nbsp;&#8801;&nbsp;&nbsp;&nbsp; x.__str__()</li>
+    <li class="incremental">x == y &nbsp;&nbsp;&nbsp;&#8801;&nbsp;&nbsp;&nbsp; x.__eq__(y)</li>
+    <li class="incremental">"magic"? ☹</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Fuzzy equality</h1>
+    <pre class="python">
+    class Pt(namedtuple("Pt", "x, y")):
+
+        def __eq__(self, other):
+            x1, y1 = self
+            x2, y2 = other
+            return (
+                math.isclose(x1, x2) and
+                math.isclose(y1, y2)
+            )
+    </pre>
+    <ul><li>Foreshadowing: this is a bad idea!</li></ul>
+</div>
+
+<div class="slide">
+    <h1>Sidebar: hashing</h1>
+    <ul>
+    <li class="incremental">A short-cut for ==</li>
+    <li class="incremental">Rules:<ul>
+        <li class="incremental">hash() must return an int</li>
+        <li class="incremental">x == y &nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;hash(x) == hash(y)</li>
+        <li class="incremental">hash(x) &nbsp;&nbsp;&nbsp;&#8801;&nbsp;&nbsp;&nbsp; x.__hash__()</li>
+    </ul></li>
+    <li class="incremental">Dicts use the hash to bucket keys together</li>
+    <li class="incremental">(Not cryptographic: SHA1, etc)</li>
+    </ul>
 </div>
 
 <div class="slide">
