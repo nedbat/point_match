@@ -1,4 +1,4 @@
-<!DOCTYPE html> <!-- vim: set foldmethod=marker :-->
+<!DOCTYPE html> <!-- vim: set foldmethod=marker cc=60 :-->
 <!--
 Values to change when making a new prez:
 
@@ -326,7 +326,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Linear search: O(n)</h1>
+    <h1>Linear search</h1>
     <pre class="python">
     zz_by_ends = [
         (Pt(10, 20),  [..zigzags..] ),
@@ -336,14 +336,46 @@ def pic_sequence(pix):
     </pre>
     <pre class="python incremental">
     def find_zigzags(p):
-        for pt, zigzags in zz_by_ends:      #  O(n)
-            if p == pt:
+        for pt, zigzags in zz_by_ends:
+            if p == pt:     # fuzzy!
                 return zigzags
     </pre>
+</div>
+
+<div class="slide">
+    <h1>Dict-like</h1>
+    <pre class="python">
+    class PointDict:
+        def __init__(self):
+            # A list of (pt, value) tuples.
+            self._items = []
+
+        # d[k]  &#8801;  d.__getitem__(k)
+        def __getitem__(self, pt):
+            for key, value in self._items:
+                if key == pt:           # fuzzy!
+                    return value
+
+            # Didn't find it: make a new list value and add
+            # it to the end.
+            value = []
+            self._items.append((pt, value))
+            return value
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Advice: abstraction</h1>
+    <ul>
+    <li class="incremental">Aren't sure of the answer?</li>
+    <li class="incremental">Get the question right</li>
+    <li class="incremental">Hide uncertainty in an abstraction</li>
+    </ul>
     <pre class="python incremental">
-    for zz in all_zigzags:                  #  O(n**2)
-        others = find_zigzags(zz[0])
-        ...
+    pd = PointDict()
+    pd[pt1].append(zz1)
+    print(pd[pt1])
+    </pre>
 </div>
 
 <div class="slide">
