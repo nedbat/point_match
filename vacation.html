@@ -1,9 +1,5 @@
 <!DOCTYPE html> <!-- vim: set foldmethod=marker cc=60 :-->
 <!--
-Values to change when making a new prez:
-
-    blank.html -> name of this file.
-    shorturl -> bit.ly short url, or remove those lines.
 
 Process this file with cog:
 
@@ -48,6 +44,8 @@ from cogutil import *
     <script type="text/javascript">
         $(function() {
             if ($("body.slides").length) {
+                # Visit vacation.html?showall  to see all the incremental stuff at once...
+                var showall = (window.location.href.indexOf("showall") !== -1);
                 $(".slide").slippy({
                     // settings go here
                     // possible values are:
@@ -61,9 +59,11 @@ from cogutil import *
                     //    images are scaled properly (default is 620px wide)
                     //  - ratio, defines the width/height ratio of the slides, defaults to 1.3 (620x476)
                     //  - margin, the fraction of screen to use as slide margin, defaults to 0.15
-                    margin: 0.04,
+                    margin: 0.01,
                     incrementalBefore: function (el) {
-                        $(el).css({ opacity: 0.01 });
+                        if (!showall) {
+                            $(el).css({ opacity: 0.01 });
+                        }
                     },
                     animInForward: function (slide) {
                         var slide = $(slide);
@@ -73,7 +73,9 @@ from cogutil import *
                         else {
                             slide.css('left', '150%').animate({left: '50%'}, 350);
                         }
-                        slide.find(".incremental").css({opacity:0});    // IDK why this hides them, but 0.01 does not.
+                        if (!showall) {
+                            slide.find(".incremental").css({opacity:0});    // IDK why this hides them, but 0.01 does not.
+                        }
                     },
                     animOutForward: function(slide) {
                         var slide = $(slide);
