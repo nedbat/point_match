@@ -218,12 +218,20 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Sidebar: dicts</h1>
+    <h1>&#x261d; Sidebar: dicts</h1>
     <ul>
     <li class="incremental">Maps keys to values</li>
     <li class="incremental">Fast! (more later)</li>
     <li class="incremental">Anything <em>hashable</em> can be a key</li>
     </ul>
+    <pre class="python incremental">
+    >>> d = {}
+    >>> d['hi'] = 'hello'
+    >>> d['bye'] = 'goodbye'
+    >>> d['hi']
+    'hello'
+    </pre>
+
 </div>
 
 <div class="slide">
@@ -291,7 +299,7 @@ def pic_sequence(pix):
                 math.isclose(y1, y2)
             )
     </pre>
-    <ul><li>Foreshadowing: this is a bad idea!</li></ul>
+    <ul><li class="incremental">Foreshadowing: this is a bad idea!</li></ul>
 </div>
 
 <div class="slide">
@@ -352,7 +360,7 @@ def pic_sequence(pix):
             # A list of (pt, value) tuples.
             self._items = []
 
-        # d[k]  &#8801;  d.__getitem__(k)
+        # pd[pt]  &#8801;  pd.__getitem__(pt)
         def __getitem__(self, pt):
             for key, value in self._items:
                 if key == pt:           # fuzzy!
@@ -383,6 +391,61 @@ def pic_sequence(pix):
 <div class="slide">
     <img src="three_stars_007_joined.png" />
 </div>
+
+<div class="slide">
+    <h1>Algorithmic Complexity</h1>
+    <ul>
+    <li class="incremental">Big-O notation</li>
+    <li class="incremental">How code slows as data grows</li>
+    <li class="incremental">Rough characterization</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Linear search: O(n)</h1>
+    <ul>
+    <li class="incremental">Time is proportional to data</li>
+    <li class="incremental">O(n)</li>
+    </ul>
+    <pre class="python incremental">
+    def find_zigzags(p):
+        for pt, zigzags in zz_by_ends:
+            if p == pt:     # fuzzy!
+                return zigzags
+    </pre>
+    <ul>
+    <li class="incremental">If zz_by_ends doubles in size..</li>
+    <li class="incremental">..time doubles</li>
+    <li class="incremental">"time is on the order of n"</li>
+    <li class="incremental">O(n)</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>The real problem: O(n²)</h1>
+    <pre class="python">
+    for zz in all_zigzags:
+        others = find_zigzags(zz[0])
+    </pre>
+    <ul>
+    <li class="incremental">find_zigzags is O(n)</li>
+    <li class="incremental">called n times</li>
+    <li class="incremental">is O(n²)</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Python time complexities</h1>
+    <table>
+        <tr><td><tt>mylist[n]           </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>val in mylist       </tt></td><td>O(n)</td></tr>
+        <tr><td><tt>for val in mylist   </tt></td><td>O(n)</td></tr>
+        <tr><td><tt>mydict[key]         </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>key in mydict       </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>for key in mydict   </tt></td><td>O(n)</td></tr>
+    </table>
+</div>
+
 
 <div class="slide">
     <h1>Next idea: rounding</h1>

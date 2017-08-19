@@ -79,6 +79,10 @@ h1, h2, h3, h4 {
     line-height: 1.15;
 }
 
+.slide tt {
+    font-family: Consolas, monaco, monospace;
+}
+
 .slide pre.medium {
     font-size: 85%;
 }
@@ -193,4 +197,11 @@ body.notes {
 }
 .slide pre.tophalf {
     margin-top: 0;  /* No idea why I need this... :( :( */
+}
+
+table, td {
+    border: 1px solid #888;
+}
+td {
+    padding: .5em 1em;
 }
