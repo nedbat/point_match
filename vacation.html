@@ -564,6 +564,13 @@ def pic_sequence(pix):
     <!--[[[cog
         with open("debugging_strap.py") as f:
             lines = textwrap.dedent(f.read()).splitlines()
+        hiranges = [
+            (20,21), (30,31), (126,133), (136,136), (144,144), (147,162),
+            (166,166), (168,174), (227,246), (258,278),
+        ]
+        hilines = set()
+        for lo, hi in hiranges:
+            hilines.update(range(lo, hi+1))
         lines = [quote_html(l[:90]) for l in lines]
         chunk = 100
         result = []
@@ -573,7 +580,10 @@ def pic_sequence(pix):
                 these_lines[0] = '&nbsp;' + these_lines[0][1:]
             style = 'font-size: 19%; width:50em; margin-right: 3em; float: left'
             result.append("<pre class='python' style='{style}'>".format(style=style))
-            result.extend(these_lines)
+            for lineno, line in enumerate(these_lines, start=start+1):
+                if lineno in hilines:
+                    line = "<span class='highlight'>" + line + "</span>"
+                result.append(line)
             result.append("</pre>")
         cog.outl("\n".join(result))
     ]]] {{{ -->
@@ -597,8 +607,8 @@ def pic_sequence(pix):
             self.over = over
             self.over_piece = None
 
-        def __repr__(self):
-            return f"&lt;Xing under={show_path(self.under)} over={show_path(self.over)}&gt;"
+    <span class='highlight'>    def __repr__(self):</span>
+    <span class='highlight'>        return f"&lt;Xing under={show_path(self.under)} over={show_path(self.over)}&gt;"</span>
 
     class Strap:
         def __init__(self, path, width, random_factor=0):
@@ -607,8 +617,8 @@ def pic_sequence(pix):
                 width *= (1 + random.random() * random_factor)
             self.sides = [offset_path(path, d) for d in [width/2, -width/2]]
 
-        def __repr__(self):
-            return f"&lt;Strap path={self.path}&gt;"
+    <span class='highlight'>    def __repr__(self):</span>
+    <span class='highlight'>        return f"&lt;Strap path={self.path}&gt;"</span>
 
 
     def path_pieces(path, segs_to_points):
@@ -705,17 +715,17 @@ def pic_sequence(pix):
             for seg in segs:
                 points_to_paths[isect].append(segs_to_paths[seg])
 
-        print(f"{len(isect_points)} intersections")
-
-        if 0:
-            debug_output(dwgw=DWGW, paths=paths, segments=segments, isects=isect_points)
-
-        debug = should_debug("strapify")
-        if debug:
-            dbgdwgs = iter(DrawingSequence(name="debugs_", paths=paths))
+    <span class='highlight'>    print(f"{len(isect_points)} intersections")</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    if 0:</span>
+    <span class='highlight'>        debug_output(dwgw=DWGW, paths=paths, segments=segments, isects=isect_points)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    debug = should_debug("strapify")</span>
+    <span class='highlight'>    if debug:</span>
+    <span class='highlight'>        dbgdwgs = iter(DrawingSequence(name="debugs_", paths=paths))</span>
 
         paths_to_do = set(paths)
-        paths_done = set()
+    <span class='highlight'>    paths_done = set()</span>
         xings = {}      # pt -&gt; xing
         straps = []     # new smaller paths, ending at unders.
         path = None
@@ -723,37 +733,37 @@ def pic_sequence(pix):
             next_paths = set()
             next_paths.add(paths_to_do.pop())
             while next_paths:
-                previous_path = path
+    <span class='highlight'>            previous_path = path</span>
                 path = next_paths.pop()
 
-                if debug:
-                    dwg = next(dbgdwgs)
-                    dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)
-                    dwg.draw_paths(paths_done, rgb=(0, 0, 0), width=3)
-                    dwg.draw_paths(next_paths, rgb=(.7, .7, 0), width=9)
-                    if previous_path:
-                        dwg.draw_path(previous_path, rgb=(1, 0, 0), width=10, dash=[30, 30])
-                    dwg.draw_path(path, rgb=(1, 0, 0), width=15)
-                    dwg.fill_points([path[0]], rgb=(1, 0, 0), radius=15*3/2)
-                    dwg.fill_points([path[1]], rgb=(1, 0, 0), radius=15*2/2)
-                    partial_over = [pt for pt, xing in xings.items() if xing.under is None]
-                    partial_under = [pt for pt, xing in xings.items() if xing.over is None]
-                    dwg.circle_points(partial_over, rgb=(.8, 0, 0), radius=21, width=9)
-                    dwg.circle_points(partial_under, rgb=(0, 0, .8), radius=21, width=9)
-                    done = [pt for pt, xing in xings.items() if xing.under is not None and xin
-                    dwg.circle_points(done, rgb=(0, .8, 0), radius=15, width=3)
+    <span class='highlight'>            if debug:</span>
+    <span class='highlight'>                dwg = next(dbgdwgs)</span>
+    <span class='highlight'>                dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)</span>
+    <span class='highlight'>                dwg.draw_paths(paths_done, rgb=(0, 0, 0), width=3)</span>
+    <span class='highlight'>                dwg.draw_paths(next_paths, rgb=(.7, .7, 0), width=9)</span>
+    <span class='highlight'>                if previous_path:</span>
+    <span class='highlight'>                    dwg.draw_path(previous_path, rgb=(1, 0, 0), width=10, dash=[30, 30])</span>
+    <span class='highlight'>                dwg.draw_path(path, rgb=(1, 0, 0), width=15)</span>
+    <span class='highlight'>                dwg.fill_points([path[0]], rgb=(1, 0, 0), radius=15*3/2)</span>
+    <span class='highlight'>                dwg.fill_points([path[1]], rgb=(1, 0, 0), radius=15*2/2)</span>
+    <span class='highlight'>                partial_over = [pt for pt, xing in xings.items() if xing.under is None]</span>
+    <span class='highlight'>                partial_under = [pt for pt, xing in xings.items() if xing.over is None]</span>
+    <span class='highlight'>                dwg.circle_points(partial_over, rgb=(.8, 0, 0), radius=21, width=9)</span>
+    <span class='highlight'>                dwg.circle_points(partial_under, rgb=(0, 0, .8), radius=21, width=9)</span>
+    <span class='highlight'>                done = [pt for pt, xing in xings.items() if xing.under is not None and xin</span>
+    <span class='highlight'>                dwg.circle_points(done, rgb=(0, .8, 0), radius=15, width=3)</span>
 
                 prev_piece = None
                 last_cut = None
-                first_piece = True
+    <span class='highlight'>            first_piece = True</span>
                 for piece, over in pieces_under_over(path, segs_to_points, xings):
-                    if first_piece and debug:
-                        dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), widt
-                        dwg.finish()
-                        if 0 and dwg.num &gt; 10:
-                            print()
-                            import sys; sys.exit()
-                        first_piece = False
+    <span class='highlight'>                if first_piece and debug:</span>
+    <span class='highlight'>                    dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), widt</span>
+    <span class='highlight'>                    dwg.finish()</span>
+    <span class='highlight'>                    if 0 and dwg.num &gt; 10:</span>
+    <span class='highlight'>                        print()</span>
+    <span class='highlight'>                        import sys; sys.exit()</span>
+    <span class='highlight'>                    first_piece = False</span>
 
                     cut = None
                     if over:
@@ -808,26 +818,26 @@ def pic_sequence(pix):
                             xing.over = path
                         xing.over_piece = strap
 
-                paths_done.add(path)
-                if debug:
-                    dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0, 1
-                    dwg.finish()
-                    if 0 and dwg.num &gt; 10:
-                        print()
-                        import sys; sys.exit()
-
-        if 0:
-            bad = [pt for pt, xing in xings.items() if xing.over_piece is None]
-            debug_output(dwgw=DWGW, paths=paths, segments=segments, isects=bad)
-
-        if debug:
-            for strap in straps:
-                dwg = next(dbgdwgs)
-                dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)
-                dwg.draw_path(strap.path, rgb=(1, 0, 0), width=3)
-                for s in strap.sides:
-                    dwg.draw_path(s, rgb=(0, 0, 1), width=1)
-                dwg.finish()
+    <span class='highlight'>            paths_done.add(path)</span>
+    <span class='highlight'>            if debug:</span>
+    <span class='highlight'>                dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0, 1</span>
+    <span class='highlight'>                dwg.finish()</span>
+    <span class='highlight'>                if 0 and dwg.num &gt; 10:</span>
+    <span class='highlight'>                    print()</span>
+    <span class='highlight'>                    import sys; sys.exit()</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    if 0:</span>
+    <span class='highlight'>        bad = [pt for pt, xing in xings.items() if xing.over_piece is None]</span>
+    <span class='highlight'>        debug_output(dwgw=DWGW, paths=paths, segments=segments, isects=bad)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    if debug:</span>
+    <span class='highlight'>        for strap in straps:</span>
+    <span class='highlight'>            dwg = next(dbgdwgs)</span>
+    <span class='highlight'>            dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)</span>
+    <span class='highlight'>            dwg.draw_path(strap.path, rgb=(1, 0, 0), width=3)</span>
+    <span class='highlight'>            for s in strap.sides:</span>
+    <span class='highlight'>                dwg.draw_path(s, rgb=(0, 0, 1), width=1)</span>
+    <span class='highlight'>            dwg.finish()</span>
 
         for strap in straps:
             for end in [0, -1]:
@@ -839,27 +849,27 @@ def pic_sequence(pix):
         return straps
 
 
-    def debug_output(dwgw=None, paths=None, segments=None, isects=None):
-        dwg = Drawing(paths=paths, name="debug.png")
-        dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)
-
-        dup_segments = []
-        segments.sort()
-        for s1, s2 in zip(segments, segments[1:]):
-            if s1 == s2:
-                dup_segments.append(s1)
-
-        dwg.draw_segments(dup_segments, rgb=(1, 0, 0), width=7)
-
-        if dwgw is not None:
-            with dwg.style(rgb=(0, 0, 1), width=2, dash=[5, 5]):
-                dwg.rectangle(0, 0, dwgw, dwgw)
-                dwg.stroke()
-
-        if isects is not None:
-            dwg.circle_points(isects, radius=9, rgb=(0, .5, 0), width=3)
-
-        dwg.finish()
+    <span class='highlight'>def debug_output(dwgw=None, paths=None, segments=None, isects=None):</span>
+    <span class='highlight'>    dwg = Drawing(paths=paths, name="debug.png")</span>
+    <span class='highlight'>    dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    dup_segments = []</span>
+    <span class='highlight'>    segments.sort()</span>
+    <span class='highlight'>    for s1, s2 in zip(segments, segments[1:]):</span>
+    <span class='highlight'>        if s1 == s2:</span>
+    <span class='highlight'>            dup_segments.append(s1)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    dwg.draw_segments(dup_segments, rgb=(1, 0, 0), width=7)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    if dwgw is not None:</span>
+    <span class='highlight'>        with dwg.style(rgb=(0, 0, 1), width=2, dash=[5, 5]):</span>
+    <span class='highlight'>            dwg.rectangle(0, 0, dwgw, dwgw)</span>
+    <span class='highlight'>            dwg.stroke()</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    if isects is not None:</span>
+    <span class='highlight'>        dwg.circle_points(isects, radius=9, rgb=(0, .5, 0), width=3)</span>
+    <span class='highlight'></span>
+    <span class='highlight'>    dwg.finish()</span>
     </pre>
     <!--[[[end]]] }}}-->
 </div>

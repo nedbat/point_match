@@ -110,7 +110,10 @@ h1, h2, h3, h4 {
 .slide pre .attn {
     background: #ada;
     border-radius: .15em;
+}
 
+.slide pre .highlight {
+    background: #fe4;
 }
 
 pre .selected {
