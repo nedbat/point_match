@@ -562,11 +562,22 @@ def pic_sequence(pix):
 <div class="slide">
     <h1>Debugging</h1>
     <!--[[[cog
-        include_file(
-            "debugging_strap.py", classes="nano",
-        )
+        with open("debugging_strap.py") as f:
+            lines = textwrap.dedent(f.read()).splitlines()
+        lines = [quote_html(l[:90]) for l in lines]
+        chunk = 100
+        result = []
+        for start in range(0, len(lines), chunk):
+            these_lines = lines[start:start+chunk]
+            if these_lines[0][0] == ' ':
+                these_lines[0] = '&nbsp;' + these_lines[0][1:]
+            style = 'font-size: 19%; width:50em; margin-right: 3em; float: left'
+            result.append("<pre class='python' style='{style}'>".format(style=style))
+            result.extend(these_lines)
+            result.append("</pre>")
+        cog.outl("\n".join(result))
     ]]] {{{ -->
-    <pre class='nano python'>
+    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
     """Strappiness for Zellij."""
 
     import collections
@@ -642,7 +653,7 @@ def pic_sequence(pix):
 
 
     def pieces_under_over(path, segs_to_points, xings):
-        """Produce all the pieces of the path, with a bool indicating if each leads to under or over."""
+        """Produce all the pieces of the path, with a bool indicating if each leads to under o
         pieces = list(path_pieces(path, segs_to_points))
         for i, piece in enumerate(pieces):
             xing = xings.get(piece[-1])
@@ -667,6 +678,8 @@ def pic_sequence(pix):
         yield from zip(pieces, itertools.cycle(ou))
 
 
+    </pre>
+    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
     def strapify(paths, **strap_kwargs):
         """Turn paths intro straps."""
 
@@ -727,7 +740,7 @@ def pic_sequence(pix):
                     partial_under = [pt for pt, xing in xings.items() if xing.over is None]
                     dwg.circle_points(partial_over, rgb=(.8, 0, 0), radius=21, width=9)
                     dwg.circle_points(partial_under, rgb=(0, 0, .8), radius=21, width=9)
-                    done = [pt for pt, xing in xings.items() if xing.under is not None and xing.over is not None]
+                    done = [pt for pt, xing in xings.items() if xing.under is not None and xin
                     dwg.circle_points(done, rgb=(0, .8, 0), radius=15, width=3)
 
                 prev_piece = None
@@ -735,7 +748,7 @@ def pic_sequence(pix):
                 first_piece = True
                 for piece, over in pieces_under_over(path, segs_to_points, xings):
                     if first_piece and debug:
-                        dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), width=5)
+                        dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), widt
                         dwg.finish()
                         if 0 and dwg.num &gt; 10:
                             print()
@@ -767,7 +780,9 @@ def pic_sequence(pix):
                                 xing = Xing(over=path)
                                 xings[cut] = xing
                             else:
-                                assert xing.over is None or xing.over == path
+    </pre>
+    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
+    &nbsp;                           assert xing.over is None or xing.over == path
                                 xing.over = path
                             xing.over_piece = strap
                         else:
@@ -795,7 +810,7 @@ def pic_sequence(pix):
 
                 paths_done.add(path)
                 if debug:
-                    dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0, 1), width=5)
+                    dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0, 1
                     dwg.finish()
                     if 0 and dwg.num &gt; 10:
                         print()
@@ -805,8 +820,8 @@ def pic_sequence(pix):
             bad = [pt for pt, xing in xings.items() if xing.over_piece is None]
             debug_output(dwgw=DWGW, paths=paths, segments=segments, isects=bad)
 
-        for strap in straps:
-            if debug:
+        if debug:
+            for strap in straps:
                 dwg = next(dbgdwgs)
                 dwg.draw_segments(segments, rgb=(0, 0, 0), width=1)
                 dwg.draw_path(strap.path, rgb=(1, 0, 0), width=3)
