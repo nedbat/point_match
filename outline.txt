@@ -64,6 +64,8 @@
     - path is list of points
         - no methods, just a lot of functions
             - duplicated code
+    - path vs segments
+        - need both?
     - drawing a path: a path method, or a drawing method?
         - collinear(p1, p2, p3): should it be a method?
     - tuple, namedtuple, dict, class, attrs

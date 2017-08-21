@@ -99,6 +99,10 @@ h1, h2, h3, h4 {
     font-size: 30%;
 }
 
+.slide pre.nano {
+    font-size: 10%;
+}
+
 .slide pre.python {
     background: #cfc;
 }
