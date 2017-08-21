@@ -199,9 +199,9 @@ body.notes {
     margin-top: 0;  /* No idea why I need this... :( :( */
 }
 
-table, td {
+table, td, th {
     border: 1px solid #888;
 }
-td {
-    padding: .5em 1em;
+td, th {
+    padding: .35em .5em;
 }

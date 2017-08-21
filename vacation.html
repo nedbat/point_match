@@ -44,7 +44,7 @@ from cogutil import *
     <script type="text/javascript">
         $(function() {
             if ($("body.slides").length) {
-                // Visit vacation.html?showall  to see all the incremental stuff at once...
+                // Visit vacation.html?showall to see all the incremental stuff at once...
                 var showall = (window.location.href.indexOf("showall") !== -1);
                 $(".slide").slippy({
                     // settings go here
@@ -402,47 +402,62 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Linear search: O(n)</h1>
+    <h1>Linear search: O(N)</h1>
     <ul>
     <li class="incremental">Time is proportional to data</li>
-    <li class="incremental">O(n)</li>
     </ul>
     <pre class="python incremental">
-    def find_zigzags(p):
-        for pt, zigzags in zz_by_ends:
-            if p == pt:     # fuzzy!
-                return zigzags
+    def __getitem__(self, pt):
+        for key, value in self._items:
+            if key == pt:
+                return value
     </pre>
     <ul>
-    <li class="incremental">If zz_by_ends doubles in size..</li>
-    <li class="incremental">..time doubles</li>
-    <li class="incremental">"time is on the order of n"</li>
-    <li class="incremental">O(n)</li>
+    <li class="incremental">When self._items doubles in size ...</li>
+    <li class="incremental">... time doubles</li>
+    <li class="incremental">"time is on the order of N"</li>
+    <li class="incremental">O(N)</li>
     </ul>
 </div>
 
 <div class="slide">
-    <h1>The real problem: O(n²)</h1>
+    <h1>Ideal: O(1)</h1>
+    <ul>
+    <li class="incremental">Constant time!</li>
+    <li class="incremental"><tt>mydict[key]</tt></li>
+    <li class="incremental">Hashing: don't have to look at all keys</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>The real problem: O(N²)</h1>
     <pre class="python">
     for zz in all_zigzags:
         others = find_zigzags(zz[0])
     </pre>
     <ul>
-    <li class="incremental">find_zigzags is O(n)</li>
-    <li class="incremental">called n times</li>
-    <li class="incremental">is O(n²)</li>
+    <li class="incremental">find_zigzags is O(N)</li>
+    <li class="incremental">called N times</li>
+    <li class="incremental">O(N²)</li>
     </ul>
 </div>
 
 <div class="slide">
     <h1>Python time complexities</h1>
     <table>
+        <tr><th colspan='2'>Lists</td></tr>
+        <tr><td><tt>mylist.append(val)  </tt></td><td>O(1)</td></tr>
         <tr><td><tt>mylist[n]           </tt></td><td>O(1)</td></tr>
-        <tr><td><tt>val in mylist       </tt></td><td>O(n)</td></tr>
-        <tr><td><tt>for val in mylist   </tt></td><td>O(n)</td></tr>
+        <tr><td><tt>val in mylist       </tt></td><td>O(N)</td></tr>
+        <tr><td><tt>for val in mylist:  </tt></td><td>O(N)</td></tr>
+    </table>
+    <p></p>
+    <table>
+        <tr><th colspan='2'>Dicts</td></tr>
+        <tr><td><tt>mydict[key] = val   </tt></td><td>O(1)</td></tr>
         <tr><td><tt>mydict[key]         </tt></td><td>O(1)</td></tr>
         <tr><td><tt>key in mydict       </tt></td><td>O(1)</td></tr>
-        <tr><td><tt>for key in mydict   </tt></td><td>O(n)</td></tr>
+        <tr><td><tt>for key in mydict:  </tt></td><td>O(N)</td></tr>
     </table>
 </div>
 
@@ -497,7 +512,7 @@ def pic_sequence(pix):
             self.items = {}     # pt -> value
             self.rounds = {}    # pt -> pt
 
-        def __getitem__(self, pt):      # O(1)
+        def __getitem__(self, pt):      <span class="incremental"># O(1)</span>
             val = self.items.get(pt)
             if val is not None:
                 return val
