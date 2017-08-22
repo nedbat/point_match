@@ -561,7 +561,15 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Debugging</h1>
-    <!--[[[cog
+    <ul>
+    <li class="incremental">Extra code just for debugging</li>
+    <li class="incremental">__repr__</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Debugging</h1>
+    <!--[[[cog {{{
         with open("debugging_strap.py") as f:
             lines = textwrap.dedent(f.read()).splitlines()
         hiranges = [
@@ -586,7 +594,8 @@ def pic_sequence(pix):
                 result.append(line)
             result.append("</pre>")
         cog.outl("\n".join(result))
-    ]]] {{{ -->
+    ]]] }}}
+    {{{ -->
     <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
     """Strappiness for Zellij."""
 
@@ -872,6 +881,10 @@ def pic_sequence(pix):
     <span class='highlight'>    dwg.finish()</span>
     </pre>
     <!--[[[end]]] }}}-->
+</div>
+
+<div class="slide image">
+    <img src='debugs_breath.png' width="50%"/>
 </div>
 
 <div class="slide title">
