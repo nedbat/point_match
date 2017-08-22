@@ -235,6 +235,26 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <h1>Non-string keys</h1>
+    <pre class="python">
+    >>> d = {}
+    >>> d[17] = 23
+    >>> d[17]
+    23
+
+    >>> d[(1, 2)] = 'a point'
+    >>> d[(1, 2)]
+    'a point'
+    >>> d[(1.0, 2.0)]
+    'a point'
+
+    >>> d[Pt(10, 20)] = 'another point'
+    >>> d[Pt(10, 20)]
+    'another point'
+    </pre>
+</div>
+
+<div class="slide">
     <h1>BUT: Same point, different values</h1>
     <pre class="python">
     zigzags = [
@@ -245,7 +265,7 @@ def pic_sequence(pix):
     ]
     </pre>
     <pre class="python incremental">
-    >>> d = {Pt(10, 20): "hey there"}
+    >>> d[Pt(10, 20)] = "hey there"
     >>> d[Pt(10, 20.00001)]
     KeyError: Pt(10, 20.00001)
     </pre>
