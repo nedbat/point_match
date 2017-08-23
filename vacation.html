@@ -584,6 +584,8 @@ def pic_sequence(pix):
     <ul>
     <li class="incremental">Extra code just for debugging</li>
     <li class="incremental">__repr__</li>
+    <li class="incremental">assert</li>
+    <li class="incremental">if debug:</li>
     </ul>
 </div>
 
@@ -593,8 +595,11 @@ def pic_sequence(pix):
         with open("debugging_strap.py") as f:
             lines = textwrap.dedent(f.read()).splitlines()
         hiranges = [
+            # "debug"
             (20,21), (30,31), (126,133), (136,136), (144,144), (147,162),
             (166,166), (168,174), (227,246), (258,278),
+            # "assert"
+            (89,89), (178,178), (187,187), (193,193), (201,201),
         ]
         hilines = set()
         for lo, hi in hiranges:
@@ -614,8 +619,7 @@ def pic_sequence(pix):
                 result.append(line)
             result.append("</pre>")
         cog.outl("\n".join(result))
-    ]]] }}}
-    {{{ -->
+    ]]] -->
     <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
     """Strappiness for Zellij."""
 
@@ -705,7 +709,7 @@ def pic_sequence(pix):
             elif xing.under is not None:
                 over = True
             else:
-                assert xing.over is not None
+    <span class='highlight'>            assert xing.over is not None</span>
                 over = False
             ou = [over, not over]
             if i % 2:
@@ -796,7 +800,7 @@ def pic_sequence(pix):
 
                     cut = None
                     if over:
-                        assert prev_piece is None
+    <span class='highlight'>                    assert prev_piece is None</span>
                         prev_piece = piece
                         if last_cut:
                             cut = last_cut
@@ -805,13 +809,13 @@ def pic_sequence(pix):
                                 xing = Xing(under=path)
                                 xings[cut] = xing
                             else:
-                                assert xing.under is None or xing.under == path
+    <span class='highlight'>                            assert xing.under is None or xing.under == path</span>
                                 xing.under = path
                             last_cut = None
                     else:
                         if prev_piece:
                             cut = prev_piece[-1]
-                            assert cut == piece[0]
+    <span class='highlight'>                        assert cut == piece[0]</span>
                             strap = Strap(join_paths(prev_piece, piece), **strap_kwargs)
                             straps.append(strap)
                             xing = xings.get(cut)
@@ -821,7 +825,7 @@ def pic_sequence(pix):
                             else:
     </pre>
     <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
-    &nbsp;                           assert xing.over is None or xing.over == path
+    <span class='highlight'>&nbsp;                           assert xing.over is None or xing.over == path</span>
                                 xing.over = path
                             xing.over_piece = strap
                         else:
