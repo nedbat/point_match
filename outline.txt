@@ -77,6 +77,15 @@
         - global?
         - thread-local?
         - hide it in a function.
+- third-party code
+    - find intersections of segments
+    - easy, but O(n**2)
+    - well-known algorithm (wikipedia)
+    - ideasman has code!
+    - it needs some work
+        - file bugs
+    - it's touchy about angle
+    - terrible hack to solve the angle problem!
 - bounded mutability?
     - practical functional programming
 - postulates??
