@@ -166,7 +166,7 @@ from cogutil import *
     <img src='twostates.jpg' />
 </div>
 
-<div class="slide title">
+<div class="slide section">
     <h1>My Vacation</h1>
 </div>
 
@@ -204,6 +204,11 @@ def pic_sequence(pix):
 <div class="slide image fadein fadeout"><img src="three_stars_005_lined.png" /></div>
 <div class="slide image fadein"><img src="three_stars_006_chaos.png" /></div>
 <!--[[[end]]]-->
+
+<div class="slide section">
+    <h1>Matching Points</h1>
+</div>
+
 
 <div class="slide">
     <h1>Ideal</h1>
@@ -590,6 +595,53 @@ def pic_sequence(pix):
     >>> dfz(Pt(1.01, 2))
     Pt(1, 2)
     </pre>
+</div>
+
+<div class="slide section">
+    <h1>Representation</h1>
+</div>
+
+<div class="slide section">
+    <h1>Other People's Code</h1>
+</div>
+
+<div class="slide">
+    <h1>Line intersections</h1>
+    <pre class="python">
+    def segment_intersections(segments):
+        isects = defaultdict(list)
+
+        for seg1 in segments:
+            for seg2 in segments:
+                if seg1 is seg2:
+                    continue
+
+                isect_pt = seg1.intersect(seg2)
+                if isect_pt is not None:
+                    isects[isect_pt].extend([seg1, seg2])
+
+        return isects
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>Better algorithm</h1>
+    <img src='wiki-bentley.png' />
+    <img class="incremental" src='bentley-zoom.png' 
+        style='position:absolute;border: 20px solid #f66; border-radius: 1em; left:1em; top: 8em;'
+        />
+</div>
+
+<div class="slide image">
+    <img src='github-ideasman.png' />
+</div>
+
+<div class="slide image">
+    <img src='github-issue.png' />
+</div>
+
+<div class="slide image">
+    <img src='github-pr.png' />
 </div>
 
 <div class="slide">
