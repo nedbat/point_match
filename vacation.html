@@ -129,6 +129,15 @@ from cogutil import *
     .slide.image {
         text-align: center;
     }
+    .slide pre .o_1 {
+        background: #6f6;
+        border-radius: .15em;
+    }
+    .slide pre .o_n {
+        background: #faa;
+        border-radius: .15em;
+    }
+
     </style>
     <!-- }}} -->
 
@@ -139,7 +148,9 @@ from cogutil import *
 <div class="slide title" data-layout="clean">
     <h1>What I Did on my<br>Summer Vacation</h1>
     <h2>Ned Batchelder<br/><a class="implicit" href="http://twitter.com/nedbat"><span class="punct">@</span>nedbat</a></h2>
+    <!--
     <h2><a class="implicit" href="http://bit.ly/shorturl"><span class="punct">http://</span>bit.ly<span class="punct">/</span>shorturl</a></h2>
+    -->
 </div>
 
 <div class="text"><!-- {{{ -->
@@ -591,6 +602,92 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <div style="float: left; width=50%;">
+        <h1 style="margin-top: 0">Slow</h1>
+        <div style="position: relative; width=100%">
+            <pre class="python small" style="margin-top:0">
+                def __init__(self):
+                    self.items = []
+
+                def __getitem__(self, pt):
+                    for key, value in self.items:
+                        if key == pt:
+                            return value
+
+                    value = []
+                    self.items.append((pt, value))
+                    return value
+            </pre>
+            <pre class="python small incremental" style="position: absolute; top:0; left:0; margin-top:0">
+                def __init__(self):
+                    self.items = []
+
+                def __getitem__(self, pt):
+                    <span class="o_n">for key, value in self.items:</span>
+                        if key == pt:
+                            return value
+
+                    value = []
+                    <span class="o_1">self.items.append((pt, value))</span>
+                    return value
+            </pre>
+        </div>
+    </div>
+    <div style="position: absolute; top:0; right:0;width=50%">
+        <h1 style="margin-top: 0">Fast</h1>
+        <div style="position: relative; width=100%; padding-right: 2em">
+            <pre class="python small" style="margin-top:0">
+                def __init__(self):
+                    self.items = {}     # pt -> value
+                    self.rounds = {}    # pt -> pt
+
+                def __getitem__(self, pt):
+                    val = self.items.get(pt)
+                    if val is not None:
+                        return val
+
+                    for jitter in [0, 0.5]:
+                        pt_rnd = rounded(pt, jitter)
+                        pt0 = self.rounds.get(pt_rnd)
+                        if pt0 is not None:
+                            return self.items[pt0]
+
+                    self.items[pt] = val = []
+                    for jitter in [0, 0.5]:
+                        pt_rnd = rounded(pt, jitter)
+                        self.rounds[pt_rnd] = pt
+
+                    return val
+            </pre>
+            <pre class="python small incremental" style="position: absolute; top:0; left:0; margin-top:0">
+                def __init__(self):
+                    self.items = {}     # pt -> value
+                    self.rounds = {}    # pt -> pt
+
+                def __getitem__(self, pt):
+                    val = <span class="o_1">self.items.get(pt)</span>
+                    if val is not None:
+                        return val
+
+                    for jitter in [0, 0.5]:
+                        pt_rnd = rounded(pt, jitter)
+                        pt0 = <span class="o_1">self.rounds.get(pt_rnd)</span>
+                        if pt0 is not None:
+                            return <span class="o_1">self.items[pt0]</span>
+
+                    <span class="o_1">self.items[pt] = val = []</span>
+                    for jitter in [0, 0.5]:
+                        pt_rnd = rounded(pt, jitter)
+                        <span class="o_1">self.rounds[pt_rnd] = pt</span>
+
+                    return val
+            </pre>
+        </div>
+    </div>
+</div>
+
+
+<div class="slide">
     <h1>Doing less</h1>
     <pre class="python">
     class Defuzzer:
@@ -618,6 +715,11 @@ def pic_sequence(pix):
     <p>
         List[Point] -> Path
         List[Path] ->  ???
+    </p>
+    <p>Classes are nicer:
+        path_segments(path)  -->  path.segments()
+        Fewer imports
+        Better organization
     </p>
 </div>
 
