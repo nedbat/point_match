@@ -129,11 +129,11 @@ from cogutil import *
     .slide.image {
         text-align: center;
     }
-    .slide pre .o_1 {
+    .o_1 {
         background: #6f6;
         border-radius: .15em;
     }
-    .slide pre .o_n {
+    .o_n {
         background: #faa;
         border-radius: .15em;
     }
@@ -618,6 +618,10 @@ def pic_sequence(pix):
                     self.items.append((pt, value))
                     return value
             </pre>
+            <div class="incremental" style="margin-top:6em; width:3em;">
+                <p class="o_1">O(1)</p>
+                <p class="o_n">O(n)</p>
+            </div>
             <pre class="python small incremental" style="position: absolute; top:0; left:0; margin-top:0">
                 def __init__(self):
                     self.items = []
