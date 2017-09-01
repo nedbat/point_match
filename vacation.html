@@ -130,11 +130,11 @@ from cogutil import *
         text-align: center;
     }
     .o_1 {
-        background: #6f6;
+        background: #3f3;
         border-radius: .15em;
     }
     .o_n {
-        background: #faa;
+        background: #fbb;
         border-radius: .15em;
     }
 
@@ -407,18 +407,18 @@ def pic_sequence(pix):
     class PointDict:
         def __init__(self):
             # A list of (pt, value) tuples.
-            self._items = []
+            self.items = []
 
         # pd[pt]  &#8801;  pd.__getitem__(pt)
         def __getitem__(self, pt):
-            for key, value in self._items:
+            for key, value in self.items:
                 if key == pt:           # fuzzy!
                     return value
 
             # Didn't find it: make a new list value and add
             # it to the end.
             value = []
-            self._items.append((pt, value))
+            self.items.append((pt, value))
             return value
     </pre>
 </div>
@@ -441,6 +441,14 @@ def pic_sequence(pix):
     <img src="three_stars_007_joined.png" />
 </div>
 
+<div class="slide">
+    <h1>It works</h1>
+    <ul>
+    <li>But it's slow</li>
+    </ul>
+</div>
+
+
 <div class="slide section">
     <h1>Algorithmic Complexity</h1>
 </div>
@@ -461,12 +469,12 @@ def pic_sequence(pix):
     </ul>
     <pre class="python incremental">
     def __getitem__(self, pt):
-        for key, value in self._items:
+        for key, value in self.items:
             if key == pt:
                 return value
     </pre>
     <ul>
-    <li class="incremental">When self._items doubles in size ...</li>
+    <li class="incremental">When self.items doubles in size ...</li>
     <li class="incremental">... time doubles</li>
     <li class="incremental">"time is on the order of N"</li>
     <li class="incremental">O(N)</li>
@@ -504,15 +512,14 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Python time complexities</h1>
-    <table>
+    <table style="float:left;margin-right: 2em">
         <tr><th colspan='2'>Lists</td></tr>
         <tr><td><tt>mylist.append(val)  </tt></td><td>O(1)</td></tr>
         <tr><td><tt>mylist[n]           </tt></td><td>O(1)</td></tr>
         <tr><td><tt>val in mylist       </tt></td><td>O(N)</td></tr>
         <tr><td><tt>for val in mylist:  </tt></td><td>O(N)</td></tr>
     </table>
-    <p></p>
-    <table>
+    <table style="float:left">
         <tr><th colspan='2'>Dicts</td></tr>
         <tr><td><tt>mydict[key] = val   </tt></td><td>O(1)</td></tr>
         <tr><td><tt>mydict[key]         </tt></td><td>O(1)</td></tr>
@@ -521,6 +528,10 @@ def pic_sequence(pix):
     </table>
 </div>
 
+
+<div class="slide section">
+    <h1>Faster Point Matching</h1>
+</div>
 
 <div class="slide">
     <h1>Next idea: rounding</h1>
@@ -602,6 +613,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <!-- Slow/Fast {{{ -->
     <div style="float: left; width=50%;">
         <h1 style="margin-top: 0">Slow</h1>
         <div style="position: relative; width=100%">
@@ -618,9 +630,9 @@ def pic_sequence(pix):
                     self.items.append((pt, value))
                     return value
             </pre>
-            <div class="incremental" style="margin-top:6em; width:3em;">
-                <p class="o_1">O(1)</p>
-                <p class="o_n">O(n)</p>
+            <div class="incremental" style="margin-top:8em; width:3em;">
+                <p class="o_1">&nbsp;&nbsp;O(1)</p>
+                <p class="o_n">&nbsp;&nbsp;O(n)</p>
             </div>
             <pre class="python small incremental" style="position: absolute; top:0; left:0; margin-top:0">
                 def __init__(self):
@@ -688,8 +700,28 @@ def pic_sequence(pix):
             </pre>
         </div>
     </div>
+    <!-- }}} -->
 </div>
 
+<div class="slide">
+    <h1>Algorithms!</h1>
+    <ul>
+    <li>Understand your data structures</li>
+    <li>Speed comes from better algorithms</li>
+    </ul>
+</div>
+
+<div class="slide section">
+    <h1>Better Abstraction</h1>
+</div>
+
+<div class="slide">
+    <h1>One Thing</h1>
+    <ul>
+    <li class="incremental">"Classes (or functions) should do one thing"</li>
+    <li class="incremental">What is "one thing"?</li>
+    </ul>
+</div>
 
 <div class="slide">
     <h1>Doing less</h1>
@@ -699,13 +731,25 @@ def pic_sequence(pix):
             """Return pt, or a previous equal point."""
     </pre>
     <pre class="python incremental">
-    >>> dfz = Defuzzer().defuzz
-    >>> dfz(Pt(1, 2))
+    >>> defuzz = Defuzzer().defuzz
+    >>> defuzz(Pt(1, 2))
     Pt(1, 2)
-    >>> dfz(Pt(3, 4))
+    >>> defuzz(Pt(3, 4))
     Pt(3, 4)
-    >>> dfz(Pt(1.01, 2))
+    >>> defuzz(Pt(1.01, 2))
     Pt(1, 2)
+    </pre>
+</div>
+
+<div class="slide">
+    <pre class="python">
+    def defuzz_paths(paths):
+        return [
+            [defuzz(pt) for pt in path]
+            for path in paths
+        ]
+
+    # Then just use a regular dict...
     </pre>
 </div>
 
