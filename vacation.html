@@ -463,6 +463,16 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <h1>Big-O</h1>
+    <ul>
+    <li class="incremental">How many steps for N items of data?</li>
+    <li class="incremental">Only the biggest component</li>
+    <li class="incremental">Ignore constants</li>
+    </ul>
+</div>
+
+
+<div class="slide">
     <h1>Linear search: O(N)</h1>
     <ul>
     <li class="incremental">Time is proportional to data</li>
@@ -484,9 +494,8 @@ def pic_sequence(pix):
 <div class="slide">
     <h1>Ideal: O(1)</h1>
     <ul>
-    <li class="incremental">Constant time!</li>
-    <li class="incremental"><tt>mydict[key]</tt></li>
-    <li class="incremental">Hashing: don't have to look at all keys</li>
+    <li class="incremental">Same time no matter how much data!</li>
+    <li class="incremental"><tt>mydict[key]</tt> is O(1)</li>
     </ul>
 </div>
 
@@ -526,6 +535,15 @@ def pic_sequence(pix):
         <tr><td><tt>key in mydict       </tt></td><td>O(1)</td></tr>
         <tr><td><tt>for key in mydict:  </tt></td><td>O(N)</td></tr>
     </table>
+</div>
+
+<div class="slide">
+    <h1>Be reasonable</h1>
+    <ul>
+    <li class="incremental">'Fancy algorithms are slow when n is small, and n is usually small.' -- Rob Pike</li>
+    <li class="incremental">10-element list? Just do it</li>
+    <li class="incremental">100? 1000? O(n) probably OK</li>
+    </ul>
 </div>
 
 
