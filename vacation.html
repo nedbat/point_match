@@ -148,9 +148,7 @@ from cogutil import *
 <div class="slide title" data-layout="clean">
     <h1>What I Did on my<br>Summer Vacation</h1>
     <h2>Ned Batchelder<br/><a class="implicit" href="https://twitter.com/nedbat"><span class="punct">@</span>nedbat</a></h2>
-    <!--
-    <h2><a class="implicit" href="https://bit.ly/shorturl"><span class="punct">https://</span>bit.ly<span class="punct">/</span>shorturl</a></h2>
-    -->
+    <h2><a class="implicit" href="https://bit.ly/bospyvaca"><span class="punct">https://</span>bit.ly<span class="punct">/</span>bospyvaca</a></h2>
 </div>
 
 <div class="text"><!-- {{{ -->
@@ -173,7 +171,7 @@ from cogutil import *
     <img class='incremental' src='noidea1.jpg' />
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='twostates.jpg' />
 </div>
 
@@ -190,11 +188,11 @@ def pic_sequence(pix):
             cls += " fadein"
         if i < len(pix) - 1:
             cls += " fadeout"
-        cog.outl('<div class="{}"><img src="{}" /></div>'.format(cls, pic))
+        cog.outl('<div class="{}" data-layout="clean"><img src="{}" /></div>'.format(cls, pic))
 ]]]-->
 <!--[[[end]]]-->
 
-<div class="slide"><img src="map2.png" /></div>
+<div class="slide image" data-layout="clean"><img src="map2.png" /></div>
 
 <!--[[[cog 
     pic_sequence(
@@ -202,18 +200,18 @@ def pic_sequence(pix):
         glob.glob('three_stars_0*.png')[:7]
     )
 ]]] -->
-<div class="slide image fadeout"><img src="dorn_view.jpg" /></div>
-<div class="slide image fadein fadeout"><img src="dorn_balcony.jpg" /></div>
-<div class="slide image fadein fadeout"><img src="dorn_room.jpg" /></div>
-<div class="slide image fadein fadeout"><img src="dorn_three_stars.jpg" /></div>
-<div class="slide image fadein fadeout"><img src="dorn_tile_zoom.jpg" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_000_start.png" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_001_thin.png" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_002_symmetry.png" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_003_triangle.png" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_004_design.png" /></div>
-<div class="slide image fadein fadeout"><img src="three_stars_005_lined.png" /></div>
-<div class="slide image fadein"><img src="three_stars_006_chaos.png" /></div>
+<div class="slide image fadeout" data-layout="clean"><img src="dorn_view.jpg" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_balcony.jpg" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_room.jpg" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_three_stars.jpg" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_tile_zoom.jpg" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_000_start.png" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_001_thin.png" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_002_symmetry.png" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_003_triangle.png" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_004_design.png" /></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_005_lined.png" /></div>
+<div class="slide image fadein" data-layout="clean"><img src="three_stars_006_chaos.png" /></div>
 <!--[[[end]]]-->
 
 <div class="slide section">
@@ -512,7 +510,7 @@ def pic_sequence(pix):
     </ul>
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='graph_complexity.png' />
     <!--
     https://graphsketch.com/?eqn1_color=2&eqn1_eqn=x*x&eqn2_color=4&eqn2_eqn=2*x*log(x)&eqn3_color=1&eqn3_eqn=x&eqn4_color=6&eqn4_eqn=7*log(x)&eqn5_color=3&eqn5_eqn=2&eqn6_color=6&eqn6_eqn=&x_min=0&x_max=30&y_min=0&y_max=40&x_tick=100&y_tick=100&x_label_freq=50&y_label_freq=50&do_grid=0&bold_labeled_lines=0&line_width=4&image_w=850&image_h=650
@@ -821,15 +819,15 @@ def pic_sequence(pix):
         />
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='github-ideasman.png' />
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='github-issue.png' />
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='github-pr.png' />
 </div>
 
@@ -1176,7 +1174,7 @@ Failed at rotation 1.1666666666666667
     <!--[[[end]]] }}}-->
 </div>
 
-<div class="slide image">
+<div class="slide image" data-layout="clean">
     <img src='debugs_breath.png' width="50%"/>
 </div>
 
@@ -1188,7 +1186,17 @@ Failed at rotation 1.1666666666666667
 <!-- ** Layouts {{{ -->
 <div class="layout" data-name="default">
     <content></content>
+    <div class="footer">
+        <span class="left">bit.ly<span class='punct'>/</span>bospyvaca</span>
+        <span class="right"><span class='punct'>@</span>nedbat</span>
+        <hr class="defloat" />
+    </div>
 </div>
+
+<div class="layout nofooter" data-name="clean">
+    <content></content>
+</div>
+
 <!-- }}} -->
 
 </body>
