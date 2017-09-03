@@ -158,9 +158,10 @@ from cogutil import *
 </div><!-- }}} -->
 
 <div class="slide">
-    <h1>Big Picture</h1>
+    <h1>What is this?</h1>
     <ul>
     <li class="incremental">Side project</li>
+    <li class="incremental">Problems and solutions</li>
     <li class="incremental">Concepts, techniques, advice</li>
     <li class="incremental">Questions are OK!</li>
     </ul>
@@ -169,7 +170,7 @@ from cogutil import *
 <div class="slide">
     <h1>Software is hard</h1>
     <ul>
-    <li class="incremental">No easy answers</li>
+    <li class="incremental">Lots of challenges</li>
     <li class="incremental">Even small projects have tricky questions</li>
     </ul>
 </div>
@@ -183,7 +184,7 @@ from cogutil import *
     <img src='twostates.jpg' />
 </div>
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>My Vacation</h1>
 </div>
 
@@ -222,7 +223,7 @@ def pic_sequence(pix):
 <div class="slide image fadein" data-layout="clean"><img src="three_stars_006_chaos.png" /></div>
 <!--[[[end]]]-->
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Matching Points</h1>
 </div>
 
@@ -253,7 +254,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>&#x261d; Sidebar: dicts</h1>
+    <h1>Sidebar: dicts</h1>
     <ul>
     <li class="incremental">Maps keys to values</li>
     <li class="incremental">Fast! (more later)</li>
@@ -455,7 +456,7 @@ def pic_sequence(pix):
 </div>
 
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Algorithmic Complexity</h1>
 </div>
 
@@ -553,7 +554,7 @@ def pic_sequence(pix):
 </div>
 
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Faster Point Matching</h1>
 </div>
 
@@ -628,7 +629,7 @@ def pic_sequence(pix):
     </pre>
 </div>
 
-<div class="slide">
+<div class="slide" data-layout="clean">
     <img style="float:right" width="55%" src="straps.png" />
     <h1>Results</h1>
     <p class="incremental">~2100 points</p>
@@ -735,7 +736,7 @@ def pic_sequence(pix):
     </ul>
 </div>
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Better Abstraction</h1>
 </div>
 
@@ -798,7 +799,7 @@ def pic_sequence(pix):
     </pre>
 </div>
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Representation</h1>
 </div>
 
@@ -817,7 +818,7 @@ def pic_sequence(pix):
 </div>
 
 
-<div class="slide section">
+<div class="slide section" data-layout="clean">
     <h1>Other People's Code</h1>
 </div>
 
@@ -840,7 +841,7 @@ def pic_sequence(pix):
     </pre>
 </div>
 
-<div class="slide">
+<div class="slide" data-layout="clean">
     <h1>Better algorithm</h1>
     <img src='wiki-bentley.png' />
     <img class="incremental" src='bentley-zoom.png' 
@@ -875,18 +876,21 @@ Failed at rotation 1.1666666666666667
     </pre>
 </div>
 
-<div class="slide">
+<div class="slide section" data-layout="clean">
     <h1>Debugging</h1>
+</div>
+
+
+<div class="slide">
+    <h1>Write code to help you debug</h1>
     <ul>
-    <li class="incremental">Extra code just for debugging</li>
-    <li class="incremental">__repr__</li>
+    <li class="incremental">def __repr__(self):</li>
     <li class="incremental">assert</li>
     <li class="incremental">if debug:</li>
     </ul>
 </div>
 
-<div class="slide">
-    <h1>Debugging</h1>
+<div class="slide" data-layout="clean">
     <!--[[[cog {{{
         with open("debugging_strap.py") as f:
             lines = textwrap.dedent(f.read()).splitlines()
@@ -900,14 +904,14 @@ Failed at rotation 1.1666666666666667
         hilines = set()
         for lo, hi in hiranges:
             hilines.update(range(lo, hi+1))
-        lines = [quote_html(l[:90]) for l in lines]
+        lines = [quote_html(l[:88]) for l in lines]
         chunk = 100
         result = []
         for start in range(0, len(lines), chunk):
             these_lines = lines[start:start+chunk]
             if these_lines[0][0] == ' ':
                 these_lines[0] = '&nbsp;' + these_lines[0][1:]
-            style = 'font-size: 19%; width:50em; margin-right: 3em; float: left'
+            style = 'font-size: 21%; width:48em; margin-right: 2em; float: left'
             result.append("<pre class='python' style='{style}'>".format(style=style))
             for lineno, line in enumerate(these_lines, start=start+1):
                 if lineno in hilines:
@@ -916,7 +920,7 @@ Failed at rotation 1.1666666666666667
             result.append("</pre>")
         cog.outl("\n".join(result))
     ]]] -->
-    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
+    <pre class='python' style='font-size: 21%; width:48em; margin-right: 2em; float: left'>
     """Strappiness for Zellij."""
 
     import collections
@@ -992,7 +996,7 @@ Failed at rotation 1.1666666666666667
 
 
     def pieces_under_over(path, segs_to_points, xings):
-        """Produce all the pieces of the path, with a bool indicating if each leads to under o
+        """Produce all the pieces of the path, with a bool indicating if each leads to under
         pieces = list(path_pieces(path, segs_to_points))
         for i, piece in enumerate(pieces):
             xing = xings.get(piece[-1])
@@ -1018,7 +1022,7 @@ Failed at rotation 1.1666666666666667
 
 
     </pre>
-    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
+    <pre class='python' style='font-size: 21%; width:48em; margin-right: 2em; float: left'>
     def strapify(paths, **strap_kwargs):
         """Turn paths intro straps."""
 
@@ -1079,7 +1083,7 @@ Failed at rotation 1.1666666666666667
     <span class='highlight'>                partial_under = [pt for pt, xing in xings.items() if xing.over is None]</span>
     <span class='highlight'>                dwg.circle_points(partial_over, rgb=(.8, 0, 0), radius=21, width=9)</span>
     <span class='highlight'>                dwg.circle_points(partial_under, rgb=(0, 0, .8), radius=21, width=9)</span>
-    <span class='highlight'>                done = [pt for pt, xing in xings.items() if xing.under is not None and xin</span>
+    <span class='highlight'>                done = [pt for pt, xing in xings.items() if xing.under is not None and x</span>
     <span class='highlight'>                dwg.circle_points(done, rgb=(0, .8, 0), radius=15, width=3)</span>
 
                 prev_piece = None
@@ -1087,7 +1091,7 @@ Failed at rotation 1.1666666666666667
     <span class='highlight'>            first_piece = True</span>
                 for piece, over in pieces_under_over(path, segs_to_points, xings):
     <span class='highlight'>                if first_piece and debug:</span>
-    <span class='highlight'>                    dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), widt</span>
+    <span class='highlight'>                    dwg.cross_points([piece[0], piece[-1]], radius=20, rgb=(1, 0, 0), wi</span>
     <span class='highlight'>                    dwg.finish()</span>
     <span class='highlight'>                    if 0 and dwg.num &gt; 10:</span>
     <span class='highlight'>                        print()</span>
@@ -1120,7 +1124,7 @@ Failed at rotation 1.1666666666666667
                                 xings[cut] = xing
                             else:
     </pre>
-    <pre class='python' style='font-size: 19%; width:50em; margin-right: 3em; float: left'>
+    <pre class='python' style='font-size: 21%; width:48em; margin-right: 2em; float: left'>
     <span class='highlight'>&nbsp;                           assert xing.over is None or xing.over == path</span>
                                 xing.over = path
                             xing.over_piece = strap
@@ -1149,7 +1153,7 @@ Failed at rotation 1.1666666666666667
 
     <span class='highlight'>            paths_done.add(path)</span>
     <span class='highlight'>            if debug:</span>
-    <span class='highlight'>                dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0, 1</span>
+    <span class='highlight'>                dwg.cross_points([piece[0], piece[-1]], radius=30, rotate=30, rgb=(0, 0,</span>
     <span class='highlight'>                dwg.finish()</span>
     <span class='highlight'>                if 0 and dwg.num &gt; 10:</span>
     <span class='highlight'>                    print()</span>
@@ -1207,7 +1211,7 @@ Failed at rotation 1.1666666666666667
     <img src='debugs_breath.png' width="50%"/>
 </div>
 
-<div class="slide title">
+<div class="slide title" data-layout="clean">
     <h1>The End<span class="incremental">?</span></h1>
 </div>
 
