@@ -137,7 +137,16 @@ from cogutil import *
         background: #fbb;
         border-radius: .15em;
     }
-
+    .popup {
+        background: white;
+        position: absolute;
+        border: .75em solid #f66;
+        border-radius: 1em;
+        box-shadow: .35em .35em .2em rgba(0, 0, 0, 0.4);
+    }
+    div.popup {
+        padding: .6em 2em;
+    }
     </style>
     <!-- }}} -->
 
@@ -446,13 +455,12 @@ def pic_sequence(pix):
 
 <div class="slide image" data-layout="clean">
     <img src="three_stars_007_joined.png" />
-</div>
-
-<div class="slide">
-    <h1>It works</h1>
-    <ul>
-    <li>But it's slow</li>
-    </ul>
+    <div class="incremental popup" style="top:6em;left:4em;">
+        It works!
+    </div>
+    <div class="incremental popup" style="top:12em;right:2em;">
+        but it's slow...
+    </div>
 </div>
 
 
@@ -799,6 +807,16 @@ def pic_sequence(pix):
     </pre>
 </div>
 
+<div class="slide">
+    <h1>Tip: Be flexible</h1>
+    <ul>
+    <li class="incremental">Things change</li>
+    <li class="incremental">Change with them</li>
+    <li class="incremental">Be ready to change your mind</li>
+    </ul>
+</div>
+
+
 <div class="slide section" data-layout="clean">
     <h1>Representation</h1>
 </div>
@@ -844,8 +862,8 @@ def pic_sequence(pix):
 <div class="slide" data-layout="clean">
     <h1>Better algorithm</h1>
     <img src='wiki-bentley.png' />
-    <img class="incremental" src='bentley-zoom.png' 
-        style='position:absolute;border: 20px solid #f66; border-radius: 1em; left:1em; top: 8em;'
+    <img class="incremental popup" src='bentley-zoom.png'
+        style='left:1em;top:8em;'
         />
 </div>
 
