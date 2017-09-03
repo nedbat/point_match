@@ -130,7 +130,8 @@ html.phantompng pre .selected {
 
 .slide li {
     margin-top: .5em;
-    position:relative;
+    position: relative;
+    line-height: 1.2em;
 }
 .slide ul>li {
     list-style: none;

@@ -489,16 +489,14 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Linear search: O(N)</h1>
-    <ul>
-    <li class="incremental">Time is proportional to data</li>
-    </ul>
-    <pre class="python incremental">
+    <pre class="python">
     def __getitem__(self, pt):
         for key, value in self.items:
             if key == pt:
                 return value
     </pre>
     <ul>
+    <li class="incremental">Time is proportional to data</li>
     <li class="incremental">When self.items doubles in size ...</li>
     <li class="incremental">... time doubles</li>
     <li class="incremental">"time is on the order of N"</li>
@@ -511,6 +509,7 @@ def pic_sequence(pix):
     <ul>
     <li class="incremental">Same time no matter how much data!</li>
     <li class="incremental"><tt>mydict[key]</tt> is O(1)</li>
+    <li class="incremental">Hashing is the magic</li>
     </ul>
 </div>
 
@@ -554,11 +553,13 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Be reasonable</h1>
+    <img class="incremental" width="40%" style="float:left;margin-right: 2em;" src="fancy-algorithms.png" />
+    <div style="float:right;width:33%">
     <ul>
-    <li class="incremental">'Fancy algorithms are slow when n is small, and n is usually small.' -- Rob Pike</li>
     <li class="incremental">10-element list? Just do it</li>
     <li class="incremental">100? 1000? O(n) probably OK</li>
     </ul>
+    </div>
 </div>
 
 
@@ -841,6 +842,20 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <h1>Affine transformations</h1>
+    <pre class="python">
+    import affine
+    rotation = affine.Affine.rotation(angle)
+    rotated_pt = Point(*(rotation * pt))
+    </pre>
+    <ul>
+    <li class="incremental">Worked great</li>
+    <li class="incremental">End of story</li>
+    </ul>
+</div>
+
+
+<div class="slide">
     <h1>Line intersections</h1>
     <pre class="python">
     def segment_intersections(segments):
@@ -880,7 +895,38 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Sensitive to rotation</h1>
+    <h1>Ouch</h1>
+    <pre>
+  File ".../poly_point_isect.py", line 576, in isect_segments_impl
+    sweep_line.handle(p, events_current)
+  File ".../poly_point_isect.py", line 384, in handle
+    self.handle_event(e)
+  File ".../poly_point_isect.py", line 408, in handle_event
+    self.remove(event)
+ File ".../poly_point_isect.py", line 346, in remove
+    assert(event.in_sweep == False)
+AssertionError
+    </pre>
+</div>
+
+<div class="slide">
+    <h1>The horror</h1>
+    <pre class="python">
+    for angle in [x/6 for x in range(60)]:
+        rotate_everything(angle)
+
+        try:
+            isects = find_intersections()
+        except AssertionError:
+            print(f"Failed at rotation {angle}")
+            continue
+
+        rotate_everything(-angle)
+        return isects
+</div>
+
+<div class="slide">
+    <h1>¯\_(ツ)_/¯</h1>
     <pre>
 Failed at rotation 0.0
 Failed at rotation 0.16666666666666666
@@ -907,6 +953,14 @@ Failed at rotation 1.1666666666666667
     <li class="incremental">if debug:</li>
     </ul>
 </div>
+
+<div class="slide">
+    <h1>First rule of debugging</h1>
+    <ul>
+    <li class="incremental">When in Doubt, Print More Out</li>
+    </ul>
+</div>
+
 
 <div class="slide" data-layout="clean">
     <!--[[[cog {{{
