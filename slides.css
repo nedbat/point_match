@@ -38,7 +38,7 @@ h1, h2, h3, h4 {
     margin-top: 2em;
 }
 .slide.section {
-    background-color: #fec;
+    background-color: #ffb;
 }
 .slide.section h1 {
     font-family: "Open Sans", sans-serif;
@@ -129,11 +129,13 @@ html.phantompng pre .selected {
 }
 
 .slide li {
-    list-style: none;
     margin-top: .5em;
     position:relative;
 }
-.slide li:before {
+.slide ul>li {
+    list-style: none;
+}
+.slide ul>li:before {
     content: '';
     display: block;
     position: absolute;

@@ -167,6 +167,14 @@ from cogutil import *
 </div>
 
 <div class="slide">
+    <h1>Software is hard</h1>
+    <ul>
+    <li class="incremental">No easy answers</li>
+    <li class="incremental">Even small projects have tricky questions</li>
+    </ul>
+</div>
+
+<div class="slide">
     <h1>We're all in this together</h1>
     <img class='incremental' src='noidea1.jpg' />
 </div>
@@ -435,7 +443,7 @@ def pic_sequence(pix):
     </pre>
 </div>
 
-<div class="slide">
+<div class="slide image" data-layout="clean">
     <img src="three_stars_007_joined.png" />
 </div>
 
@@ -593,7 +601,7 @@ def pic_sequence(pix):
 
 <div class="slide">
     <pre class="python medium">
-    class PointMap:
+    class PointDict:
         """Like defaultdict(list), with fuzzy Pt's as keys."""
         def __init__(self):
             self.items = {}     # pt -> value
@@ -735,7 +743,18 @@ def pic_sequence(pix):
     <h1>One Thing</h1>
     <ul>
     <li class="incremental">"Classes (or functions) should do one thing"</li>
-    <li class="incremental">What is "one thing"?</li>
+    <li class="incremental">But: what is "one thing"?</li>
+    <li class="incremental">Does PointDict do one thing?
+        <ul>
+            <li class="incremental">Yes: look up values by fuzzy points</li>
+            <li class="incremental">No:
+                <ol>
+                    <li>Defuzz points</li>
+                    <li>Look up values</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
     </ul>
 </div>
 
@@ -759,13 +778,23 @@ def pic_sequence(pix):
 
 <div class="slide">
     <pre class="python">
-    def defuzz_paths(paths):
-        return [
-            [defuzz(pt) for pt in path]
-            for path in paths
-        ]
+    def defuzz_path(path):
+        return [defuzz(pt) for pt in path]
 
-    # Then just use a regular dict...
+    def defuzz_paths(paths):
+        return [defuzz(path) for path in paths]
+    </pre>
+    <pre class="python incremental">
+    def combine_paths(paths):
+        paths = defuzz_paths(paths)
+        paths_by_ends = defaultdict(list)
+        for path in paths:
+            paths_by_ends[path[0]].append(path)
+            paths_by_ends[path[-1]].append(path)
+
+        for path in paths:
+            others = endpoints[path[0]]
+            etc()
     </pre>
 </div>
 
