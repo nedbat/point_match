@@ -167,9 +167,9 @@ from cogutil import *
 </div><!-- }}} -->
 
 <div class="slide">
-    <h1>What is this?</h1>
+    <h1>What am I talking about?</h1>
     <ul>
-    <li class="incremental">Side project</li>
+    <li class="incremental">Side project: <a href='https://github.com/nedbat/zellij'>Zellij</a></li>
     <li class="incremental">Problems and solutions</li>
     <li class="incremental">Concepts, techniques, advice</li>
     <li class="incremental">Questions are OK!</li>
@@ -480,6 +480,7 @@ def pic_sequence(pix):
 <div class="slide">
     <h1>Big-O</h1>
     <ul>
+    <li class="incremental">Analyze the code</li>
     <li class="incremental">How many steps for N items of data?</li>
     <li class="incremental">Only the biggest component</li>
     <li class="incremental">Ignore constants</li>
@@ -497,9 +498,8 @@ def pic_sequence(pix):
     </pre>
     <ul>
     <li class="incremental">Time is proportional to data</li>
-    <li class="incremental">When self.items doubles in size ...</li>
-    <li class="incremental">... time doubles</li>
-    <li class="incremental">"time is on the order of N"</li>
+    <li class="incremental">Expected steps are N/2 + 2</li>
+    <li class="incremental">Keep the biggest, ignore constants: N</li>
     <li class="incremental">O(N)</li>
     </ul>
 </div>
@@ -538,7 +538,7 @@ def pic_sequence(pix):
     <table style="float:left;margin-right: 2em">
         <tr><th colspan='2'>Lists</td></tr>
         <tr><td><tt>mylist.append(val)  </tt></td><td>O(1)</td></tr>
-        <tr><td><tt>mylist[n]           </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>mylist[i]           </tt></td><td>O(1)</td></tr>
         <tr><td><tt>val in mylist       </tt></td><td>O(N)</td></tr>
         <tr><td><tt>for val in mylist:  </tt></td><td>O(N)</td></tr>
     </table>
@@ -553,11 +553,13 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Be reasonable</h1>
-    <img class="incremental" width="40%" style="float:left;margin-right: 2em;" src="fancy-algorithms.png" />
-    <div style="float:right;width:33%">
+    <img class="incremental" width="40%" style="float:left;" src="fancy-algorithms.png" />
+    <div style="float:right;width:40%">
     <ul>
-    <li class="incremental">10-element list? Just do it</li>
-    <li class="incremental">100? 1000? O(n) probably OK</li>
+    <li class="incremental">10-element list?
+    <li class="incremental">.. Just do it</li>
+    <li class="incremental">100? 1000?
+    <li class="incremental">.. O(n) probably OK</li>
     </ul>
     </div>
 </div>
@@ -639,11 +641,11 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide" data-layout="clean">
-    <img style="float:right" width="55%" src="straps.png" />
+    <img style="float:right;border: 1px solid #888" width="50%" src="straps.png" />
     <h1>Results</h1>
     <p class="incremental">~2100 points</p>
-    <p class="incremental">O(n): <b>20</b> sec</p>
-    <p class="incremental">O(1): <b>0.4</b> sec!</p>
+    <p class="incremental">slow: <b>20</b> sec</p>
+    <p class="incremental">fast: <b>0.4</b> sec!</p>
 </div>
 
 <div class="slide">
@@ -766,6 +768,7 @@ def pic_sequence(pix):
         </ul>
     </li>
     </ul>
+    <img class="incremental" src="noidea4.jpg" width="30%" style="position:absolute;bottom:2em;right:1em"/>
 </div>
 
 <div class="slide">
@@ -803,7 +806,7 @@ def pic_sequence(pix):
             paths_by_ends[path[-1]].append(path)
 
         for path in paths:
-            others = endpoints[path[0]]
+            others = paths_by_ends[path[0]]
             etc()
     </pre>
 </div>
@@ -823,17 +826,126 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Title</h1>
-    <p>TODO</p>
-    <p>
-        List[Point] -> Path
-        List[Path] ->  ???
-    </p>
-    <p>Classes are nicer:
-        path_segments(path)  -->  path.segments()
-        Fewer imports
-        Better organization
-    </p>
+    <h1>Paths</h1>
+    <ul>
+        <li>A path is just a list of points
+        <pre class="python medium">
+        path = [Pt(0, 0), Pt(1, 1), Pt(10, 0)]
+        </pre>
+        </li>
+        <li class="incremental">Lots of functions:
+        <pre class="python medium">
+        def path_length(path):
+            ...
+
+        def canonicalize_path(path):
+            ...
+
+        def offset_path(path, offset):
+            ...
+        </pre>
+        </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Classes</h1>
+    <ul>
+    <li class="incremental">Formalizes data + code for data</li>
+    </ul>
+    <pre class="python incremental">
+    class Path:
+        def __init__(self, points):
+            self.points = points
+
+        def length(self):
+            ...
+
+        def canonicalize(self):
+            ...
+
+        def offset(self, offset):
+            ...
+    </pre>
+    <ul>
+        <li class="incremental">Nicer names</li>
+        <li class="incremental">Fewer imports</li>
+    </ul>
+</div>
+
+
+<div class="slide">
+    <h1>Open/closed paths</h1>
+    <ul>
+        <li class="incremental">Old way, scattered around:
+        <pre class="python medium">
+        if path[0] == path[-1]:
+        </pre>
+        </li>
+    </ul>
+    <ul>
+        <li class="incremental">New way:
+        <pre class="python medium">
+        class Path:
+            ...
+            @property
+            def closed(self):
+                return self.points[0] == self.points[-1]
+        </pre>
+        <pre class="python medium">
+        if path.closed:
+        </pre>
+        </li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Collection of Paths</h1>
+    <ul>
+    <li class="incremental">Just a list of Path</li>
+    </ul>
+    <pre class="python incremental">
+    def paths_length(paths):
+        return sum(p.length() for p in paths)
+
+    def defuzz_paths(paths):
+        return [p.defuzz() for p in paths]
+    </pre>
+    <img class="incremental" src="noidea2.jpg" width="30%"
+        style="position:absolute;bottom:3em;right:3em"/>
+</div>
+
+<div class="slide">
+    <h1>Clash of the classes</h1>
+    <ul>
+    <li>How do classes relate?</li>
+    <li class="incremental"><tt>Line(pt1, pt2)</tt></li>
+    <li class="incremental"><tt>line1.intersect(line2)</tt></li>
+    <li class="incremental"><tt>pt1.distance(pt2)</tt></li>
+    <li class="incremental"><tt>collinear(pt1, pt2, pt3)</tt></li>
+    <li class="incremental"><tt>drawing.draw(path)</tt> <em>or</em> <tt>path.draw(drawing)</tt> ?</li>
+    </ul>
+    <img class="incremental" src="noidea3.jpg" width="30%" style="position:absolute;top:0em;right:1em"/>
+</div>
+
+<div class="slide">
+    <h1>Evolution</h1>
+    <ul>
+    <li class="incremental">Value</li>
+    <li class="incremental" style="padding-left:2em">Tuple</li>
+    <li class="incremental" style="padding-left:4em">Dict</li>
+    <li class="incremental" style="padding-left:6em">Class</li>
+    <li class="incremental">Be ready and flexible</li>
+    </ul>
+</div>
+
+<div class="slide">
+    <h1>Immutability</h1>
+    <ul>
+    <li class="incremental">Don't change things</li>
+    <li class="incremental">Make new things</li>
+    <li class="incremental">Point, Line, Path: all immutable</li>
+    </ul>
 </div>
 
 
@@ -842,13 +954,10 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Affine transformations</h1>
-    <pre class="python">
-    import affine
-    rotation = affine.Affine.rotation(angle)
-    rotated_pt = Point(*(rotation * pt))
-    </pre>
+    <h1>2D transformations</h1>
     <ul>
+    <li class="incremental">Write it myself?</li>
+    <li class="incremental">Third-party exists!</li>
     <li class="incremental">Worked great</li>
     <li class="incremental">End of story</li>
     </ul>
@@ -892,10 +1001,12 @@ def pic_sequence(pix):
 
 <div class="slide image" data-layout="clean">
     <img src='github-pr.png' />
+    <img src='Rainbow-Heart-Glitter.gif' class='incremental'
+        style="position:absolute;top:3em;right:1em"/>
 </div>
 
 <div class="slide">
-    <h1>Ouch</h1>
+    <h1>But: ouch!</h1>
     <pre>
   File ".../poly_point_isect.py", line 576, in isect_segments_impl
     sweep_line.handle(p, events_current)
@@ -907,37 +1018,45 @@ def pic_sequence(pix):
     assert(event.in_sweep == False)
 AssertionError
     </pre>
+    <ul>
+        <li class="incremental">Sensitive to angle!?</li>
+    </ul>
 </div>
 
 <div class="slide">
-    <h1>The horror</h1>
+    <h1>The horror!</h1>
     <pre class="python">
-    for angle in [x/6 for x in range(60)]:
-        rotate_everything(angle)
+    def intersections():
+        for angle in [x/6 for x in range(60)]:
+            rotate_everything(angle)
 
-        try:
-            isects = find_intersections()
-        except AssertionError:
-            print(f"Failed at rotation {angle}")
-            continue
+            try:
+                isects = isect_segments()
+            except AssertionError:
+                print(f"Failed at rotation {angle}")
+                continue
 
-        rotate_everything(-angle)
-        return isects
+            rotate_everything(-angle)
+            return isects
+    </pre>
 </div>
 
 <div class="slide">
     <h1>¯\_(ツ)_/¯</h1>
     <pre>
 Failed at rotation 0.0
-Failed at rotation 0.16666666666666666
-Failed at rotation 0.3333333333333333
+Failed at rotation 0.1666666666
+Failed at rotation 0.3333333333
 Failed at rotation 0.5
-Failed at rotation 0.6666666666666666
-Failed at rotation 0.8333333333333334
+Failed at rotation 0.6666666666
+Failed at rotation 0.8333333334
 Failed at rotation 1.0
-Failed at rotation 1.1666666666666667
+Failed at rotation 1.1666666667
 1728 intersections
     </pre>
+    <img class="incremental" src="didbad1.jpg" height="50%"
+        style="position:absolute;top:0em;right:1em"
+        />
 </div>
 
 <div class="slide section" data-layout="clean">
@@ -963,6 +1082,7 @@ Failed at rotation 1.1666666666666667
 
 
 <div class="slide" data-layout="clean">
+    <!-- Debugging, highlighted -->
     <!--[[[cog {{{
         with open("debugging_strap.py") as f:
             lines = textwrap.dedent(f.read()).splitlines()
@@ -1281,6 +1401,21 @@ Failed at rotation 1.1666666666666667
 
 <div class="slide image" data-layout="clean">
     <img src='debugs_breath.png' width="50%"/>
+</div>
+
+<div class="slide section" data-layout="clean">
+    <h1>Wrapping Up</h1>
+</div>
+
+<div class="slide">
+    <h1>Advice</h1>
+    <ul>
+    <li class="incremental">Write abstractions</li>
+    <li class="incremental">Be flexible</li>
+    <li class="incremental">Watch your algorithms</li>
+    <li class="incremental">Build useful tooling</li>
+    <li class="incremental">Don't be hard on yourself</li>
+    </ul>
 </div>
 
 <div class="slide title" data-layout="clean">
