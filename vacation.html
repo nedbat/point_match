@@ -478,7 +478,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
-    <h1>Big-O</h1>
+    <h1>Figuring out big-O</h1>
     <ul>
     <li class="incremental">Analyze the code</li>
     <li class="incremental">How many steps for N items of data?</li>
@@ -492,14 +492,15 @@ def pic_sequence(pix):
     <h1>Linear search: O(N)</h1>
     <pre class="python">
     def __getitem__(self, pt):
-        for key, value in self.items:
-            if key == pt:
-                return value
+        for key, value in self.items:       # N/2 + N/2
+            if key == pt:                   # N/2
+                return value                # 1
     </pre>
     <ul>
     <li class="incremental">Time is proportional to data</li>
-    <li class="incremental">Expected steps are N/2 + 2</li>
-    <li class="incremental">Keep the biggest, ignore constants: N</li>
+    <li class="incremental">Expect N/2 loop iterations
+    <li class="incremental">Expected steps are 3*N/2 + 1</li>
+    <li class="incremental">Keep the fastest growing, ignore constants: N</li>
     <li class="incremental">O(N)</li>
     </ul>
 </div>
@@ -516,12 +517,13 @@ def pic_sequence(pix):
 <div class="slide">
     <h1>The real problem: O(N²)</h1>
     <pre class="python">
+    pd = PointDict()
     for zz in all_zigzags:
-        others = find_zigzags(zz[0])
+        others = pd[zz[0]]
     </pre>
     <ul>
-    <li class="incremental">find_zigzags is O(N)</li>
-    <li class="incremental">called N times</li>
+    <li class="incremental">pd[pt] is O(N)</li>
+    <li class="incremental">but called N times</li>
     <li class="incremental">O(N²)</li>
     </ul>
 </div>
