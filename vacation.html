@@ -4,7 +4,7 @@
 Process this file with cog:
 
     $ pip install -r requirements.txt
-    $ python -m cogapp -r blank.html
+    $ python -m cogapp -r vacation.html
 
 -->
 <html>
@@ -239,7 +239,7 @@ def pic_sequence(pix):
 </div>
 
 
-<div class="slide">
+<div class="slide" data-layout="clean">
     <h1>Ideal</h1>
     <pre class="python">
     Pt = namedtuple("Pt", "x, y")
@@ -914,6 +914,17 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide">
+    <h1>Evolution</h1>
+    <ul>
+    <li class="incremental">Value</li>
+    <li class="incremental" style="padding-left:2em">Tuple</li>
+    <li class="incremental" style="padding-left:4em">Dict</li>
+    <li class="incremental" style="padding-left:6em">Class</li>
+    <li class="incremental">Be ready and flexible</li>
+    </ul>
+</div>
+
+<div class="slide">
     <h1>Clash of the classes</h1>
     <ul>
     <li>How do classes relate?</li>
@@ -924,17 +935,6 @@ def pic_sequence(pix):
     <li class="incremental"><tt>drawing.draw(path)</tt> <em>or</em> <tt>path.draw(drawing)</tt> ?</li>
     </ul>
     <img class="incremental" src="noidea3.jpg" width="30%" style="position:absolute;top:0em;right:1em"/>
-</div>
-
-<div class="slide">
-    <h1>Evolution</h1>
-    <ul>
-    <li class="incremental">Value</li>
-    <li class="incremental" style="padding-left:2em">Tuple</li>
-    <li class="incremental" style="padding-left:4em">Dict</li>
-    <li class="incremental" style="padding-left:6em">Class</li>
-    <li class="incremental">Be ready and flexible</li>
-    </ul>
 </div>
 
 <div class="slide">
@@ -1056,6 +1056,15 @@ Failed at rotation 1.1666666667
         style="position:absolute;top:0em;right:1em"
         />
 </div>
+
+<div class="slide">
+    <h1>Buy vs Build</h1>
+    <ul>
+    <li class="incremental">Not literally "buy"</li>
+    <li class="incremental">Not easy to decide</li>
+    </ul>
+</div>
+
 
 <div class="slide section" data-layout="clean">
     <h1>Debugging</h1>
@@ -1398,7 +1407,7 @@ Failed at rotation 1.1666666667
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='debugs_breath.png' width="50%"/>
+    <img src='debugs_breath.png' width="70%"/>
 </div>
 
 <div class="slide section" data-layout="clean">
