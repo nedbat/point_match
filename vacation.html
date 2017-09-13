@@ -23,6 +23,8 @@ from cogutil import *
     <script type="text/javascript" src="slippy/jquery.min.js"></script>
     <script type="text/javascript" src="slippy/jquery.history.js"></script>
     <script type="text/javascript" src="slippy/slippy.js"></script>
+    <script src="https://cdn.rawgit.com/ekalinin/typogr.js/0.6.6/typogr.min.js"></script>
+
     <!-- Slippy structural styles -->
     <link type="text/css" rel="stylesheet" href="slippy/slippy.css"/>
     <!-- Slippy theme -->
@@ -119,6 +121,12 @@ from cogutil import *
                 if (select) {
                     $e.lineselect(select);
                 }
+            });
+
+            // Make all the English text look nicer.
+            $('h1, h2, h3, li, p').each(function (i, e) {
+                var $e = $(e);
+                $e.html(typogr.typogrify($e));
             });
         });
     </script>
