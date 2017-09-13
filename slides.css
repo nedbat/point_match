@@ -71,6 +71,10 @@ h1, h2, h3, h4 {
     margin-top: .5em;
 }
 
+.larger {
+    font-size: 200%;
+}
+
 .slide pre {
     font-family: Consolas, monaco, monospace;
     margin-top: 1em;

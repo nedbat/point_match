@@ -189,7 +189,7 @@ from cogutil import *
     <ul>
     <li class="incremental">Lots of challenges</li>
     <li class="incremental">Even small projects have tricky questions</li>
-    <li class="incremental">"Experts" are no exception</li>
+    <li class="incremental">"Experts" are not immune</li>
     </ul>
 </div>
 
@@ -1095,7 +1095,31 @@ Failed at rotation 1.1666666667
 
 
 <div class="slide section" data-layout="clean">
-    <h1>Debugging</h1>
+    <h1>Tooling</h1>
+</div>
+
+
+<div class="slide">
+    <h1>Write "libraries"</h1>
+    <ul>
+    <li class="incremental">More abstraction</li>
+    <li class="incremental">Work at a higher level</li>
+    </ul>
+    <pre class="python incremental">
+    def all_pairs(seq):
+        """Produce all pairs from seq, but not (a, a)"""
+        return itertools.combinations(seq, 2)
+    </pre>
+    <pre class="python incremental">
+    @pytest.mark.parametrize("seq, result", [
+        ("abcd", ["ab", "ac", "ad", "bc", "bd", "cd"]),
+        ("a", []),
+        ("", []),
+    ])
+    def test_all_pairs(seq, result):
+        actual = [a+b for a, b in all_pairs(seq)]
+        assert actual == result
+    </pre>
 </div>
 
 
@@ -1108,13 +1132,15 @@ Failed at rotation 1.1666666667
     </ul>
 </div>
 
-<div class="slide">
+<div class="slide" data-layout="clean">
     <h1>First rule of debugging</h1>
     <ul>
-    <li class="incremental">When in Doubt, Print More Out</li>
+    <li class="incremental">When in Doubt,</li>
+    <li class="incremental">Print More Out!</li>
     </ul>
+    <img class="incremental" src='debugs_breath.png'
+        style="position:absolute;bottom:1em;right:1em;width:40%"/>
 </div>
-
 
 <div class="slide" data-layout="clean">
     <!-- Debugging, highlighted -->
@@ -1432,10 +1458,6 @@ Failed at rotation 1.1666666667
     <span class='highlight'>    dwg.finish()</span>
     </pre>
     <!--[[[end]]] }}}-->
-</div>
-
-<div class="slide image" data-layout="clean">
-    <img src='debugs_breath.png' width="50%"/>
 </div>
 
 <div class="slide section" data-layout="clean">
