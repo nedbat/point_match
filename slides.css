@@ -82,7 +82,7 @@ img.fullwidth {
 
 img.fullheight {
     width: auto;
-    height: 100%;
+    height: calc(100% - 1em);   /* Slides have no bottom margin. */
 }
 
 .slide pre {
