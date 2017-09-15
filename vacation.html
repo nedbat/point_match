@@ -62,6 +62,7 @@ from cogutil import *
                     //  - ratio, defines the width/height ratio of the slides, defaults to 1.3 (620x476)
                     //  - margin, the fraction of screen to use as slide margin, defaults to 0.15
                     margin: 0.01,
+                    baseWidth: false,   // disable all active image resizing
                     incrementalBefore: function (el) {
                         if (!showall) {
                             $(el).css({ opacity: 0.01 });
@@ -195,11 +196,11 @@ from cogutil import *
 
 <div class="slide">
     <h1>We're all in this together</h1>
-    <img class='incremental' src='noidea1.jpg' />
+    <img class='fullwidth incremental' src='noidea1.jpg' />
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='twostates.jpg' />
+    <img class='fullheight' src='twostates.jpg' />
 </div>
 
 <div class="slide section" data-layout="clean">
@@ -209,38 +210,45 @@ from cogutil import *
 <!--[[[cog
 import glob
 def pic_sequence(pix):
-    for i, pic in enumerate(pix):
+    for i, (pic, imgclass) in enumerate(pix):
         cls = "slide image"
         if i > 0:
             cls += " fadein"
         if i < len(pix) - 1:
             cls += " fadeout"
-        cog.outl('<div class="{}" data-layout="clean"><img src="{}" /></div>'.format(cls, pic))
+        cog.outl('<div class="{}" data-layout="clean"><img src="{}" class="{}"/></div>'.format(cls, pic, imgclass))
 ]]]-->
 <!--[[[end]]]-->
 
-<div class="slide image" data-layout="clean"><img src="map2.png" /></div>
+<div class="slide image" data-layout="clean"><img src="map2.png" class="fullwidth"/></div>
 
 <!--[[[cog 
-    pic_sequence(
-        ['dorn_view.jpg', 'dorn_balcony.jpg', 'game-of-thrones-water-garden.jpg', 'dorn_room.jpg', 'Meeting_in_dorn_jaime_myrcella.jpg', 'dorn_three_stars.jpg', 'dorn_tile_zoom.jpg'] +
-        glob.glob('three_stars_0*.png')[:7]
+    pic_sequence([
+        ('dorn_view.jpg', 'fullwidth'),
+        ('dorn_balcony.jpg', 'fullwidth'),
+        ('game-of-thrones-water-garden.jpg', 'fullwidth'),
+        ('dorn_room.jpg', 'fullheight'),
+        ('Meeting_in_dorn_jaime_myrcella.jpg', 'fullwidth'),
+        ('dorn_three_stars.jpg', 'fullheight'),
+        ('dorn_tile_zoom.jpg', 'fullwidth'),
+    ] +
+        [(pic, 'fullwidth') for pic in glob.glob('three_stars_0*.png')[:7]]
     )
 ]]] -->
-<div class="slide image fadeout" data-layout="clean"><img src="dorn_view.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_balcony.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="game-of-thrones-water-garden.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_room.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="Meeting_in_dorn_jaime_myrcella.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_three_stars.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_tile_zoom.jpg" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_000_start.png" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_001_thin.png" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_002_symmetry.png" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_003_triangle.png" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_004_design.png" /></div>
-<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_005_lined.png" /></div>
-<div class="slide image fadein" data-layout="clean"><img src="three_stars_006_chaos.png" /></div>
+<div class="slide image fadeout" data-layout="clean"><img src="dorn_view.jpg" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_balcony.jpg" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="game-of-thrones-water-garden.jpg" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_room.jpg" class="fullheight"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="Meeting_in_dorn_jaime_myrcella.jpg" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_three_stars.jpg" class="fullheight"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="dorn_tile_zoom.jpg" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_000_start.png" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_001_thin.png" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_002_symmetry.png" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_003_triangle.png" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_004_design.png" class="fullwidth"/></div>
+<div class="slide image fadein fadeout" data-layout="clean"><img src="three_stars_005_lined.png" class="fullwidth"/></div>
+<div class="slide image fadein" data-layout="clean"><img src="three_stars_006_chaos.png" class="fullwidth"/></div>
 <!--[[[end]]]-->
 
 <div class="slide section" data-layout="clean">
@@ -465,16 +473,14 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src="three_stars_007_joined.png" />
+    <img src="three_stars_007_joined.png" class="fullwidth"/>
     <div class="incremental popup" style="top:2em;left:4em;">
         It works!
     </div>
     <div class="incremental popup" style="top:4em;right:2em;">
         but it's slow...
     </div>
-    <div style='position:absolute;left:-1px;bottom:-1px;height:70%'>
-        <img src='mad_kid.png' class='incremental' style='max-height:100%'/>
-    </div>
+    <img src='mad_kid.png' class='incremental' style='position:absolute;left:-1px;bottom:-1px;height:70%'/>
 </div>
 
 
@@ -543,7 +549,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='graph_complexity.png' />
+    <img src='graph_complexity.png' class='fullwidth'/>
     <!--
     https://graphsketch.com/?eqn1_color=2&eqn1_eqn=x*x&eqn2_color=4&eqn2_eqn=2*x*log(x)&eqn3_color=1&eqn3_eqn=x&eqn4_color=6&eqn4_eqn=7*log(x)&eqn5_color=3&eqn5_eqn=2&eqn6_color=6&eqn6_eqn=&x_min=0&x_max=30&y_min=0&y_max=40&x_tick=100&y_tick=100&x_label_freq=50&y_label_freq=50&do_grid=0&bold_labeled_lines=0&line_width=4&image_w=850&image_h=650
     -->
@@ -569,7 +575,7 @@ def pic_sequence(pix):
 
 <div class="slide">
     <h1>Be reasonable</h1>
-    <img class="incremental" width="40%" style="float:left;" src="fancy-algorithms.png" />
+    <img class="incremental" style="float:left;width:50%" src="fancy-algorithms.png" />
     <div style="float:right;width:40%">
     <ul>
     <li class="incremental">10-element list?
@@ -578,6 +584,10 @@ def pic_sequence(pix):
     <li class="incremental">.. O(n) probably OK</li>
     </ul>
     </div>
+    <img class="incremental" src="graph_complexity_zoom.png" style="position:absolute;right:1em;bottom:3em;width:40%"/>
+    <!--
+    https://graphsketch.com/?eqn1_color=2&eqn1_eqn=x*x&eqn2_color=4&eqn2_eqn=2*x*log(x)&eqn3_color=1&eqn3_eqn=x&eqn4_color=6&eqn4_eqn=7*log(x)&eqn5_color=3&eqn5_eqn=2&eqn6_color=6&eqn6_eqn=&x_min=0&x_max=30&y_min=0&y_max=40&x_tick=100&y_tick=100&x_label_freq=50&y_label_freq=50&do_grid=0&bold_labeled_lines=0&line_width=4&image_w=850&image_h=650
+    -->
 </div>
 
 
@@ -662,9 +672,7 @@ def pic_sequence(pix):
     <p class="incremental">~2100 points</p>
     <p class="incremental">slow: <b>20</b> sec</p>
     <p class="incremental">fast: <b>0.4</b> sec!</p>
-    <div style='position:absolute;right:-1px;bottom:-1px;height:70%'>
-        <img src='happy_kid.png' class='incremental' style='max-height:100%'/>
-    </div>
+    <img src='happy_kid.png' class='incremental' style='position:absolute;right:-1px;bottom:-1px;height:70%'/>
 </div>
 
 <div class="slide">
@@ -787,7 +795,7 @@ def pic_sequence(pix):
         </ul>
     </li>
     </ul>
-    <img class="incremental" src="noidea4.jpg" width="30%" style="position:absolute;bottom:2em;right:1em"/>
+    <img class="incremental" src="noidea4.jpg" style="width:45%;position:absolute;bottom:2em;right:1em"/>
 </div>
 
 <div class="slide">
@@ -925,8 +933,8 @@ def pic_sequence(pix):
     def defuzz_paths(paths):
         return [p.defuzz() for p in paths]
     </pre>
-    <img class="incremental" src="noidea2.jpg" width="30%"
-        style="position:absolute;bottom:3em;right:3em"/>
+    <img class="incremental" src="noidea2.jpg"
+        style="width:45%;position:absolute;bottom:3em;right:3em"/>
 </div>
 
 <div class="slide">
@@ -951,7 +959,7 @@ def pic_sequence(pix):
     <li class="incremental"><tt>collinear(pt1, pt2, pt3)</tt></li>
     <li class="incremental"><tt>drawing.draw(path)</tt> <em>or</em> <tt>path.draw(drawing)</tt> ?</li>
     </ul>
-    <img class="incremental" src="noidea3.jpg" width="30%" style="position:absolute;top:0em;right:1em"/>
+    <img class="incremental" src="noidea3.jpg" style="width:45%;position:absolute;top:0em;right:1em"/>
 </div>
 
 <div class="slide">
@@ -1012,24 +1020,24 @@ def pic_sequence(pix):
 
 <div class="slide" data-layout="clean">
     <h1>Better algorithm</h1>
-    <img src='wiki-bentley.png' />
+    <img src='wiki-bentley.png' class='fullwidth'/>
     <img class="incremental popup" src='bentley-zoom.png'
-        style='left:1em;top:8em;'
+        style='left:1em;top:8em;width:80%'
         />
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='github-ideasman.png' />
+    <img src='github-ideasman.png' class='fullwidth'/>
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='github-issue.png' />
+    <img src='github-issue.png' class='fullheight'/>
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='github-pr.png' />
+    <img src='github-pr.png' class='fullheight'/>
     <img src='Rainbow-Heart-Glitter.gif' class='incremental'
-        style="position:absolute;top:3em;right:1em"/>
+        style="position:absolute;top:3em;right:1em;width:40%"/>
 </div>
 
 <div class="slide">
@@ -1081,8 +1089,8 @@ Failed at rotation 1.0
 Failed at rotation 1.1666666667
 1728 intersections
     </pre>
-    <img class="incremental" src="didbad1.jpg" height="50%"
-        style="position:absolute;top:0em;right:1em"
+    <img class="incremental" src="didbad1.jpg"
+        style="position:absolute;top:0em;right:1em;width:40%"
         />
 </div>
 
@@ -1139,8 +1147,8 @@ Failed at rotation 1.1666666667
     <li class="incremental">When in Doubt,</li>
     <li class="incremental">Print More Out!</li>
     </ul>
-    <img class="incremental" src='debugs_breath.png' width='832' height='832'
-        style="position:absolute;bottom:1em;right:1em;width:40%;height:auto"/>
+    <img class="incremental" src='debugs_breath.png'
+        style="position:absolute;bottom:1em;right:1em;width:60%;"/>
 </div>
 
 <div class="slide" data-layout="clean">
@@ -1489,11 +1497,11 @@ Failed at rotation 1.1666666667
 
 <div class="slide title" data-layout="clean">
     <h1 style="margin-top:0;padding-top:0">The End</h1>
-    <img src='card_straps.png' style='border: 1px solid #888'/>
+    <img src='card_straps.png' class='fullwidth' style='border: 1px solid #888'/>
 </div>
 
 <div class="slide image" data-layout="clean">
-    <img src='debug_world.png'/>
+    <img src='debug_world.png' class='fullwidth'/>
 </div>
 
 
