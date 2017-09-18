@@ -138,6 +138,12 @@ from cogutil import *
     .slide.image {
         text-align: center;
     }
+    .slide.section label {
+        color: #888;
+        font-style: italic;
+        font-size: 85%;
+        display: block;
+    }
     .o_1 {
         background: #3f3;
         border-radius: .15em;
@@ -178,8 +184,12 @@ from cogutil import *
 <div class="slide">
     <h1>What am I talking about?</h1>
     <ul>
-    <li class="incremental">Side project: <a href='https://github.com/nedbat/zellij'>Zellij</a></li>
-    <li class="incremental">Problems and solutions</li>
+    <li class="incremental">Side project: <a href='https://github.com/nedbat/zellij'>Zellij</a>
+        <ul>
+            <li>(skip the geometry if you want)</li>
+        </ul>
+    </li>
+    <li class="incremental">Challenges and solutions</li>
     <li class="incremental">Concepts, techniques, advice</li>
     <li class="incremental">Questions are OK!</li>
     </ul>
@@ -204,7 +214,7 @@ from cogutil import *
 </div>
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Prelude:</i><br/>My Vacation</h1>
+    <h1><label>Prelude</label> My Vacation</h1>
 </div>
 
 <!--[[[cog
@@ -252,7 +262,7 @@ def pic_sequence(pix):
 <!--[[[end]]]-->
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Challenge:</i><br/>Matching Points</h1>
+    <h1><label>Challenge</label> Matching Points</h1>
 </div>
 
 
@@ -485,7 +495,7 @@ def pic_sequence(pix):
 
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Technique:</i><br/>Algorithmic Complexity</h1>
+    <h1><label>Technique</label> Algorithmic Complexity</h1>
 </div>
 
 <div class="slide">
@@ -593,7 +603,7 @@ def pic_sequence(pix):
 
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Solution:</i><br/>Faster Point Matching</h1>
+    <h1><label>Solution</label> Faster Point Matching</h1>
 </div>
 
 <div class="slide">
@@ -776,7 +786,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Advice:</i><br/>Better Abstraction</h1>
+    <h1><label>Advice</label> Better Abstraction</h1>
 </div>
 
 <div class="slide">
@@ -851,7 +861,7 @@ def pic_sequence(pix):
 
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Challenge:</i><br/>Representation</h1>
+    <h1><label>Challenge</label> Representation</h1>
 </div>
 
 <div class="slide">
@@ -1124,7 +1134,7 @@ def pic_sequence(pix):
 
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Challenge?</i><br/>Other People's Code</h1>
+    <h1><label>Challenge?</label> Other People's Code</h1>
 </div>
 
 <div class="slide">
@@ -1243,7 +1253,7 @@ Failed at rotation 1.1666666667
 
 
 <div class="slide section" data-layout="clean">
-    <h1><i>Advice:</i><br/>Tooling</h1>
+    <h1><label>Advice</label> Tooling</h1>
 </div>
 
 
