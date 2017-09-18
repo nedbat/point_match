@@ -94,9 +94,12 @@ def include_code(text, lang=None, number=False, firstline=1, show_text=False, hi
     cog.outl("\n".join(result))
 
 
-def prompt_session(input, command=False, prelude=""):
+def prompt_session(input, command=False, prelude="", klass=None):
     output = ""
     if command:
         output += "$ python\n"
     output += cagedprompt.prompt_session(input, banner=command, prelude=prelude)
-    include_code(output, lang="pycon", number=False)
+    lang = "python pycon"
+    if klass is not None:
+        lang += " " + klass
+    include_code(output, lang=lang, number=False)
