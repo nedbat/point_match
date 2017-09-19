@@ -213,6 +213,21 @@ from cogutil import *
     <img class='fullheight' src='twostates.jpg' />
 </div>
 
+<div class="slide">
+    <h1>Agenda</h1>
+    <ul>
+    <li>My Vacation</li>
+    <li>Matching Points</li>
+    <li>Algorithmic Complexity</li>
+    <li>Faster Point Matching</li>
+    <li>Abstraction</li>
+    <li>Representation</li>
+    <li>Other People's Code</li>
+    <li>Tooling</li>
+    </ul>
+</div>
+
+
 <div class="slide section" data-layout="clean">
     <h1><label>Prelude</label> My Vacation</h1>
 </div>
@@ -578,12 +593,18 @@ def pic_sequence(pix):
         <tr><td><tt>val in mylist       </tt></td><td>O(N)</td></tr>
         <tr><td><tt>for val in mylist:  </tt></td><td>O(N)</td></tr>
     </table>
-    <table style="float:left">
+    <table style="float:right;margin-right: 2em">
         <tr><th colspan='2'>Dicts</td></tr>
         <tr><td><tt>mydict[key] = val   </tt></td><td>O(1)</td></tr>
         <tr><td><tt>mydict[key]         </tt></td><td>O(1)</td></tr>
         <tr><td><tt>key in mydict       </tt></td><td>O(1)</td></tr>
         <tr><td><tt>for key in mydict:  </tt></td><td>O(N)</td></tr>
+    </table>
+    <table style="float:right;margin-right: 2em; margin-top: 1em">
+        <tr><th colspan='2'>Sets</td></tr>
+        <tr><td><tt>myset.add(val)      </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>val in myset        </tt></td><td>O(1)</td></tr>
+        <tr><td><tt>for val in myset:   </tt></td><td>O(N)</td></tr>
     </table>
 </div>
 
@@ -789,7 +810,7 @@ def pic_sequence(pix):
 </div>
 
 <div class="slide section" data-layout="clean">
-    <h1><label>Advice</label> Better Abstraction</h1>
+    <h1><label>Advice</label> Abstraction</h1>
 </div>
 
 <div class="slide">
