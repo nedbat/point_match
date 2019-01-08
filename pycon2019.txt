@@ -1,0 +1,87 @@
+= How to be an Expert
+
+- Description
+
+Beginners and experts have different views of the world, and of each other.
+Beginners want to become experts, and experts want to help beginners.
+Understanding each other better can only help!
+
+Experts don't know everything: they often don't know what to do.  But they have
+strategies for dealing with those situations.  Knowing those strategies can
+help beginners feel comfortable in their new hyper-learning world.
+
+I'll show examples of expert-as-beginner from a real project of mine, and give
+tips for both experts and beginners to understand and help each other better.
+
+
+- Who and Why (Audience)
+
+This talk will help beginners better understand how experts think and operate,
+and how they deal with difficult situations.  It will help experts understand
+how to better help beginners.  Anyone teaching or learning will benefit.
+
+
+- Outline
+
+- Overview: 5 min
+    - How beginners think it will be
+        - "I'll never learn anything..."
+        - "Eventually I'll learn everything!"
+    - Actually, it will be up and down forever
+    - The two states of every developer (https://twitter.com/msdev/status/830055223330742272)
+        - Experts go through this too, all the time
+    - Experts have been beginners over and over and over again
+        - Experts are good at being beginners
+- Project: a 2D geometry toy: 10 min
+    - Many times when I didn't know what I was doing
+        - What did I do in those times?
+    - Matching points
+        - I don't know a good algorithm
+        - Strategy: modularize & move on
+            - Create the right API
+            - Maybe later we can fix the implementation
+    - Design principles
+        - "A class should do just one thing"
+            - PointMap does one thing...?
+            - Nope: defuzzer does less
+            - We're all learning all the time
+                - Be ready to change your mind
+    - Other people's code
+        - Break down the problem, look for existing solutions
+        - 2D transformations
+            - Found an existing library, used it: great, done.
+        - Line intersections
+            - Simple way would be too slow: O(n**2)
+            - Found a library!
+            - But it raised assertions: gross!
+            - Strategy: isolate the problem, move on
+                - Don't beat yourself up over it
+    - Tooling
+        - Write code to shore up your uncertainties
+            - Tests
+            - Debug-only code
+- Being a beginner: 5 min
+    - Know yourself
+        - Wrong: "What's the best way to learn Python?"
+        - Right: know how you learn best
+    - Get used to not knowing things
+    - Life-long learning
+        - Learn how you learn best
+        - Practice learning
+    - Be willing to work at a problem, then be willing to ask for help
+    - Understand root causes
+    - Look for patterns
+    - Use what's useful, skip the rest
+- Being an expert: 5 min
+    - Stay kind
+    - Remember what it was like being a beginner
+        - Our world is full of inessential wierdness
+    - Your path might not be theirs
+        - Wrong: "to really understand python you have to learn C"
+    - Careful with assessments of ease: "it's easy!" "anyone can do it!" "obviously" "just"
+        - They can backfire
+- Conclusion: 1 min
+
+= Additional Notes
+
+I've done 10 previous PyCon talks: http://nedbatchelder.com/text
