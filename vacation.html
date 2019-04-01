@@ -257,7 +257,7 @@ def pic_sequence(pix):
         ('dorn_three_stars.jpg', 'fullheight'),
         ('dorn_tile_zoom.jpg', 'fullwidth'),
     ] +
-        [(pic, 'fullwidth') for pic in glob.glob('three_stars_0*.png')[:7]]
+        [(pic, 'fullwidth') for pic in sorted(glob.glob('three_stars_0*.png'))[:7]]
     )
 ]]] -->
 <div class="slide image fadeout" data-layout="clean"><img src="dorn_view.jpg" class="fullwidth"/></div>
